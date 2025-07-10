@@ -1,0 +1,96 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Modular AI-powered data pipelines for Microsoft Fabric" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"
+    />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body class="bg-spectra-smoke text-spectra-ink font-sans">
+    <!-- Header -->
+    <header class="bg-spectra-blue text-white py-4 px-6">
+      <div class="max-w-5xl mx-auto flex justify-end items-center">
+        <nav>
+          <ul class="flex space-x-4">
+            <li class="relative group">
+              <a href="#" class="hover:underline">Explore</a>
+              <ul
+                class="absolute hidden group-hover:block bg-white text-spectra-ink shadow-lg mt-2 py-2"
+              >
+                <li class="hover:bg-gray-100">
+                  <a href="/about" class="block px-4 py-2">About Us</a>
+                </li>
+                <li class="hover:bg-gray-100">
+                  <a href="/contact" class="block px-4 py-2">Contact Us</a>
+                </li>
+                <li class="hover:bg-gray-100">
+                  <a href="/vision" class="block px-4 py-2">Our Vision</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-spectra-dark text-spectra-cloud py-12 px-6">
+      <div class="max-w-5xl mx-auto">
+        <!-- Footer Content Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <!-- Company Info -->
+          <div>
+            <h3 class="text-xl font-bold mb-4" style="font-family: 'Poppins', sans-serif;">SPECTRA</h3>
+            <p class="text-sm opacity-90">
+              Modular AI-powered data pipelines for Microsoft Fabric
+            </p>
+          </div>
+          
+          <!-- Quick Links -->
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="/about" class="hover:text-spectra-sky transition">About Us</a></li>
+              <li><a href="/vision" class="hover:text-spectra-sky transition">Our Vision</a></li>
+              <li><a href="/strategic-plan" class="hover:text-spectra-sky transition">Strategic Plan</a></li>
+            </ul>
+          </div>
+          
+          <!-- Resources -->
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Resources</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="#" class="hover:text-spectra-sky transition">Documentation</a></li>
+              <li><a href="https://github.com/SPECTRADataSolutions" class="hover:text-spectra-sky transition" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+              <li><a href="/contact" class="hover:text-spectra-sky transition">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Footer Bottom -->
+        <div class="border-t border-spectra-blue pt-6 text-center text-sm opacity-75">
+          <p>&copy; 2024 SPECTRA Data Solutions. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

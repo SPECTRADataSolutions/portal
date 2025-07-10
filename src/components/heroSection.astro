@@ -1,12 +1,23 @@
 ---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+}
 
+const { 
+  title = "SPECTRA", 
+  subtitle = "Modular AI-powered data pipelines for Microsoft Fabric" 
+} = Astro.props;
 ---
 
-<section class="bg-blue-500 text-white py-20">
-  <div class="container mx-auto text-center">
-    <h1 class="text-4xl font-bold">Welcome to Spectra Data Solutions</h1>
-    <p class="mt-4 text-lg">
-      Confident, clean, and slightly cheeky solutions for your data needs.
-    </p>
-  </div>
+<section class="bg-spectra-dark text-spectra-cloud py-20 px-6 text-center">
+  <h1
+    class="text-6xl font-bold tracking-tight"
+    style="font-family: 'Poppins', sans-serif;"
+  >
+    {title}
+  </h1>
+  <p class="text-xl mt-4">
+    {subtitle}
+  </p>
 </section>
