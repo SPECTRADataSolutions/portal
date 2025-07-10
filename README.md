@@ -1,15 +1,6 @@
-<<<<<<< HEAD
-# Astro Starter Kit: Minimal
+# SPECTRA Portal
 
-```sh
-npm create astro@latest -- --template minimal
-```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Official website for SPECTRA — Modular AI-powered data pipelines for Microsoft Fabric.
 
 ## 🚀 Project Structure
 
@@ -46,7 +37,3 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-=======
-# spectraWebsite
-Official website for SPECTRA — Modular AI-powered data pipelines for Microsoft Fabric.
->>>>>>> ebb41f4c0beb28bc273819afa26b03e8bb9c2247
