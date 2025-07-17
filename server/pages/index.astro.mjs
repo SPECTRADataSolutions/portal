@@ -11,7 +11,9 @@ const $$Index = createComponent(async ($$result, $$props, $$slots) => {
   const session = await getSession(Astro2.request);
   return renderTemplate`<html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SPECTRA | Modular AI-Powered Pipelines</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"><link rel="stylesheet" href="/src/styles/global.css">${renderHead()}</head> <body class="bg-spectra-smoke text-spectra-ink font-sans"> <!-- Title Bar --> <header class="bg-spectra-blue text-white py-4 px-6"> <div class="max-w-5xl mx-auto flex justify-between items-center"> <div class="flex items-center"> <img src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true" alt="SPECTRA Logo" class="h-8 mr-3"> <h1 class="text-xl font-bold" style="font-family: 'Poppins', sans-serif;">
 SPECTRA
-</h1> </div> <nav> <ul class="flex space-x-4 items-center"> <li class="relative group"> <a href="#" class="hover:underline">Explore</a> <ul class="absolute hidden group-hover:block bg-white text-spectra-ink shadow-lg mt-2 py-2 z-10"> <li class="hover:bg-gray-100"> <a href="/about" class="block px-4 py-2">About Us</a> </li> <li class="hover:bg-gray-100"> <a href="/contact" class="block px-4 py-2">Contact Us</a> </li> <li class="hover:bg-gray-100"> <a href="/vision" class="block px-4 py-2">Our Vision</a> </li> </ul> </li> ${session ? renderTemplate`${renderComponent($$result, "Fragment", Fragment, {}, { "default": async ($$result2) => renderTemplate` <li> <a href="/dashboard" class="hover:underline">Dashboard</a> </li> <li class="flex items-center space-x-2"> <img${addAttribute(session.user?.image || "/default-avatar.png", "src")} alt="User Avatar" class="w-6 h-6 rounded-full"> <span class="text-sm">${session.user?.name || session.user?.email}</span> </li> <li> <a href="/api/auth/signout" class="px-3 py-1 bg-spectra-orange hover:bg-spectra-gold text-spectra-ink rounded text-sm font-medium transition-colors">
+</h1> </div> <nav> <ul class="flex space-x-4 items-center"> <li class="relative group"> <a href="#" class="hover:underline">Explore</a> <ul class="absolute hidden group-hover:block bg-white text-spectra-ink shadow-lg mt-2 py-2 z-10"> <li class="hover:bg-gray-100"> <a href="/about" class="block px-4 py-2">About Us</a> </li> <li class="hover:bg-gray-100"> <a href="/contact" class="block px-4 py-2">Contact Us</a> </li> <li class="hover:bg-gray-100"> <a href="/vision" class="block px-4 py-2">Our Vision</a> </li> </ul> </li> ${session ? renderTemplate`${renderComponent($$result, "Fragment", Fragment, {}, { "default": async ($$result2) => renderTemplate` <li> <a href="/dashboard" class="hover:underline">
+Dashboard
+</a> </li> <li class="flex items-center space-x-2"> <img${addAttribute(session.user?.image || "/default-avatar.png", "src")} alt="User Avatar" class="w-6 h-6 rounded-full"> <span class="text-sm"> ${session.user?.name || session.user?.email} </span> </li> <li> <a href="/api/auth/signout" class="px-3 py-1 bg-spectra-orange hover:bg-spectra-gold text-spectra-ink rounded text-sm font-medium transition-colors">
 Sign Out
 </a> </li> ` })}` : renderTemplate`<li> <a href="/login" class="px-3 py-1 bg-spectra-orange hover:bg-spectra-gold text-spectra-ink rounded text-sm font-medium transition-colors">
 Sign In
@@ -22,11 +24,26 @@ Modular AI-powered data pipelines for Microsoft Fabric
 </p> </section> <!-- About SPECTRA --> <section class="py-20 px-6 bg-spectra-smoke"> <div class="max-w-4xl mx-auto text-center"> <h2 class="text-3xl font-bold text-spectra-blue mb-6">
 What is SPECTRA?
 </h2> <div class="text-lg text-spectra-ink leading-relaxed space-y-4"> <p>
-SPECTRA Data Solutions is pioneering the future of data automation through our modular AI-powered pipeline platform. We're on a mission to democratize enterprise-grade data capabilities, making sophisticated data processing accessible to organizations of every size.
+SPECTRA Data Solutions is pioneering the future of data automation
+            through our modular AI-powered pipeline platform. We're on a mission
+            to democratize enterprise-grade data capabilities, making
+            sophisticated data processing accessible to organizations of every
+            size.
 </p> <p>
-Our goal is to eliminate the complexity and cost barriers that have traditionally prevented businesses from harnessing the full potential of their data. By providing intelligent, automated data pipelines that integrate seamlessly with Microsoft Fabric, we're empowering organizations to focus on insights rather than infrastructure.
-</p> <p> <strong>For small businesses:</strong> We offer affordable, plug-and-play solutions that provide enterprise-level data capabilities without the enterprise-level complexity or cost. Get started quickly with pre-built connectors and automated workflows that scale with your growth.
-</p> <p> <strong>For large enterprises:</strong> We deliver comprehensive, scalable data architecture that handles complex multi-source integrations, advanced governance requirements, and enterprise-grade security while reducing operational overhead and time-to-insight.
+Our goal is to eliminate the complexity and cost barriers that have
+            traditionally prevented businesses from harnessing the full
+            potential of their data. By providing intelligent, automated data
+            pipelines that integrate seamlessly with Microsoft Fabric, we're
+            empowering organizations to focus on insights rather than
+            infrastructure.
+</p> <p> <strong>For small businesses:</strong> We offer affordable, plug-and-play
+            solutions that provide enterprise-level data capabilities without the
+            enterprise-level complexity or cost. Get started quickly with pre-built
+            connectors and automated workflows that scale with your growth.
+</p> <p> <strong>For large enterprises:</strong> We deliver comprehensive, scalable
+            data architecture that handles complex multi-source integrations, advanced
+            governance requirements, and enterprise-grade security while reducing
+            operational overhead and time-to-insight.
 </p> </div> </div> </section> <!-- Trusted By --> <section class="bg-spectra-cloud py-10 px-6 text-center"> <p class="uppercase text-sm tracking-wide text-spectra-blue mb-4">
 Trusted by
 </p> <div class="flex justify-center gap-12 grayscale opacity-80"> <img src="/logos/dxc.svg" alt="DXC" class="h-10"> <img src="/logos/velonetic.svg" alt="Velonetic" class="h-10"> <img src="/logos/lloyds.svg" alt="Lloyds of London" class="h-10"> </div> </section> <!-- Spectra Engine --> <section id="engine" class="py-20 px-6 bg-spectra-cloud"> <div class="max-w-5xl mx-auto text-center"> <h2 class="text-3xl font-bold text-spectra-blue mb-4">
