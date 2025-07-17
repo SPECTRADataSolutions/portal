@@ -1,3 +1,17 @@
+name: Revamp Website Backlog
+
+description: |
+  Backlog for scaffolding the "Revamp homepage" epic and its related issues.
+  This file is designed for use with Codex or GitHub automation workflows.
+  All issues will be created and linked under the defined epic.
+
+labels:
+  default: ["todo"]
+  epic: ["epic"]
+  feature: ["feature"]
+  bug: ["bug"]
+  chore: ["chore"]
+
 epics:
   - title: "🏠 Revamp homepage"
     body: |
@@ -7,12 +21,12 @@ epics:
 
       This epic contains tasks to redesign the homepage layout, navigation, content placement, branding, and integration with other sections of the site.
 
-      Acceptance Criteria:
-      - Homepage is minimal, professional, and accessible.
-      - Key pages are linked from the navigation bar.
-      - Branding is clean and consistent with Spectra's identity.
-      - Page sections are modular and reusable.
-      - All linked issues are closed to consider this epic complete.
+      **Acceptance Criteria**
+      - Homepage is minimal, professional, and accessible
+      - Key pages are linked from the navigation bar
+      - Branding is clean and consistent with Spectra’s identity
+      - Page sections are modular and reusable
+      - All linked issues are closed to consider this epic complete
 
     labels: ["epic", "website", "frontend"]
 
@@ -79,57 +93,4 @@ issues:
     body: |
       **User Story**  
       As a prospective customer,  
-      I want to see a 'Trusted By' section showing known clients,  
-      So that I can feel confident in Spectra's credibility.
-
-      **Requirements**  
-      - New section below homepage CTA  
-      - Include placeholder logos (DXC, Lloyd’s, etc.)
-      - Logos should be grayscale or muted for style consistency
-
-      **Acceptance Criteria**  
-      - Section renders correctly on all screen sizes  
-      - Logos are properly spaced and responsive  
-      - Section has a clean title (e.g. "Trusted by...")
-
-    labels: ["web", "branding", "content"]
-    epic: "🏠 Revamp homepage"
-
-  - title: "📚 Pull framework content from framework repo"
-    body: |
-      **User Story**  
-      As a site maintainer,  
-      I want the 'Framework' section of the site to automatically pull in the latest Markdown from the framework repo,  
-      So that content stays consistent and doesn’t need manual duplication.
-
-      **Requirements**  
-      - Link to or embed markdown files from `framework` repo  
-      - Render only clean, formatted summaries — no raw Markdown  
-      - Add 'Read more' links back to GitHub if needed
-
-      **Acceptance Criteria**  
-      - Framework page displays content pulled from repo  
-      - Updates in `framework` repo reflect on site  
-      - No broken links or raw code
-
-    labels: ["web", "docs", "integration"]
-    epic: "🏠 Revamp homepage"
-
-  - title: "🚪 Remove extra buttons from footer"
-    body: |
-      **User Story**  
-      As a minimalist designer,  
-      I want to remove all unnecessary links from the footer,  
-      So that the site feels uncluttered and deliberate.
-
-      **Requirements**  
-      - Remove About / Privacy / Contact buttons from footer  
-      - Keep only a minimal copyright
-
-      **Acceptance Criteria**  
-      - Footer contains no visible navigation buttons  
-      - Legal or company info is styled subtly  
-      - Layout still responsive and accessible
-
-    labels: ["web", "frontend", "layout"]
-    epic: "🏠 Revamp homepage"
+      I want to see
