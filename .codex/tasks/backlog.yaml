@@ -13,7 +13,7 @@ labels:
   chore: ["chore"]
 
 epics:
-  - title: "🏠 Revamp homepage"
+  - title: "Revamp homepage"
     body: |
       As a user visiting the Spectra website,
       I want a clean, purposeful homepage that clearly conveys Spectra’s identity,
@@ -31,7 +31,7 @@ epics:
     labels: ["epic", "website", "frontend"]
 
 issues:
-  - title: "🔗 Create navigation structure with page links"
+  - title: "Create navigation structure with page links"
     body: |
       **User Story**  
       As a visitor to the Spectra website,  
@@ -49,9 +49,9 @@ issues:
       - Active section is visually indicated (e.g. highlight)
 
     labels: ["web", "navigation"]
-    epic: "🏠 Revamp homepage"
+    epic: "Revamp homepage"
 
-  - title: "🚫 Remove logo from header, retain tagline"
+  - title: "Remove logo from header, retain tagline"
     body: |
       **User Story**  
       As a designer of the homepage,  
@@ -68,9 +68,9 @@ issues:
       - Works across mobile and desktop
 
     labels: ["web", "branding"]
-    epic: "🏠 Revamp homepage"
+    epic: "Revamp homepage"
 
-  - title: "🧹 Reorganise homepage content structure"
+  - title: "Reorganise homepage content structure"
     body: |
       **User Story**  
       As a content strategist,  
@@ -87,9 +87,9 @@ issues:
       - No duplication of content across pages
 
     labels: ["web", "layout"]
-    epic: "🏠 Revamp homepage"
+    epic: "Revamp homepage"
 
-  - title: "📸 Add 'Trusted By' logos section"
+  - title: "Add 'Trusted By' logos section"
     body: |
       **User Story**  
       As a prospective customer,  
