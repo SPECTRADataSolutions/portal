@@ -1,96 +1,73 @@
-name: Revamp Website Backlog
-
-description: |
-  Backlog for scaffolding the "Revamp homepage" epic and its related issues.
-  This file is designed for use with Codex or GitHub automation workflows.
-  All issues will be created and linked under the defined epic.
-
-labels:
-  default: ["todo"]
-  epic: ["epic"]
-  feature: ["feature"]
-  bug: ["bug"]
-  chore: ["chore"]
-
-epics:
-  - title: "Revamp homepage"
-    body: |
-      As a user visiting the Spectra website,
-      I want a clean, purposeful homepage that clearly conveys Spectra’s identity,
-      So that I can quickly understand what Spectra is and navigate to other sections easily.
-
-      This epic contains tasks to redesign the homepage layout, navigation, content placement, branding, and integration with other sections of the site.
-
-      **Acceptance Criteria**
-      - Homepage is minimal, professional, and accessible
-      - Key pages are linked from the navigation bar
-      - Branding is clean and consistent with Spectra’s identity
-      - Page sections are modular and reusable
-      - All linked issues are closed to consider this epic complete
-
-    labels: ["epic", "website", "frontend"]
-
+project: Spectra Portal
+repo: portal
 issues:
-  - title: "Create navigation structure with page links"
-    body: |
-      **User Story**  
-      As a visitor to the Spectra website,  
-      I want to see clear navigation links to all key sections,  
-      So that I can easily explore what Spectra offers.
+  - epic: Revamp Homepage
+    stories:
+      - title: Create navigation structure with page links
+        body: |
+          As a visitor to the Spectra website, I want to see clear navigation links to all key sections, so I can easily explore what Spectra offers.
 
-      **Requirements**  
-      - Navigation bar at top of the homepage  
-      - Links: About Us, What We Do, Framework, Contact, Login  
-      - Each link routes to a scroll target or dedicated page
+          **Acceptance Criteria**
+          - Navigation bar at top of the homepage
+          - Links: About Us, What We Do, Framework, Contact, Login
+          - Each link scrolls or navigates to correct section or page
+          - Active section is highlighted or styled to indicate context
 
-      **Acceptance Criteria**  
-      - Navigation bar is visible and styled consistently  
-      - All links work and route correctly  
-      - Active section is visually indicated (e.g. highlight)
+        labels: [web, navigation, high-priority]
 
-    labels: ["web", "navigation"]
-    epic: "Revamp homepage"
+      - title: Remove logo from header, retain tagline
+        body: |
+          As a designer, I want to remove the redundant logo in the header so the tagline becomes the primary branding element.
 
-  - title: "Remove logo from header, retain tagline"
-    body: |
-      **User Story**  
-      As a designer of the homepage,  
-      I want to remove the redundant logo from the top header,  
-      So that the tagline becomes the core identity element.
+          **Acceptance Criteria**
+          - Remove Spectra logo graphic from top of homepage
+          - Tagline remains visible: “Schema-driven. AI-powered. Neurodiverse by design.”
+          - Properly styled and responsive across mobile and desktop
 
-      **Requirements**  
-      - Remove Spectra logo graphic from header  
-      - Retain and properly style tagline: “Schema-driven. AI-powered. Neurodiverse by design.”
+        labels: [web, branding, cleanup]
 
-      **Acceptance Criteria**  
-      - No visual logo in the header  
-      - Tagline is visible, readable, and correctly placed  
-      - Works across mobile and desktop
+      - title: Reorganise homepage content structure
+        body: |
+          As a content strategist, I want to move non-critical information like 'What is Spectra?' to the About Us page so the homepage stays minimal and focused.
 
-    labels: ["web", "branding"]
-    epic: "Revamp homepage"
+          **Acceptance Criteria**
+          - 'What is Spectra?' moved to About Us page
+          - Homepage retains only intro tagline and call to action
+          - No duplicated content between pages
 
-  - title: "Reorganise homepage content structure"
-    body: |
-      **User Story**  
-      As a content strategist,  
-      I want to move in-depth descriptions like 'What is Spectra?' off the homepage,  
-      So that the homepage remains clean and minimal.
+        labels: [web, layout, content]
 
-      **Requirements**  
-      - Move 'What is Spectra?' section to the About Us page  
-      - Retain only headline and CTA on homepage
+      - title: Add 'Trusted By' logos section
+        body: |
+          As a prospective client, I want to see trusted partner logos so I can quickly assess Spectra's credibility.
 
-      **Acceptance Criteria**  
-      - Homepage contains only short welcome + CTA  
-      - 'What is Spectra?' is now rendered on About Us page  
-      - No duplication of content across pages
+          **Acceptance Criteria**
+          - Section added beneath homepage CTA
+          - Placeholder logos for DXC, Lloyd’s, and others
+          - Logos appear in muted or grayscale style
+          - Section is responsive across devices
 
-    labels: ["web", "layout"]
-    epic: "Revamp homepage"
+        labels: [web, content, branding]
 
-  - title: "Add 'Trusted By' logos section"
-    body: |
-      **User Story**  
-      As a prospective customer,  
-      I want to see
+      - title: Pull Framework content from framework repo
+        body: |
+          As a site maintainer, I want the 'Framework' section to display content from the `framework` repo so that it's always up-to-date and versioned.
+
+          **Acceptance Criteria**
+          - Render Markdown content from the framework repo
+          - Display key principles and standards
+          - Include optional “read more” links back to GitHub
+          - Do not show raw Markdown formatting
+
+        labels: [integration, docs, web]
+
+      - title: Remove footer buttons for minimal layout
+        body: |
+          As a minimalist designer, I want to strip excess buttons from the footer so the site looks clean and intentional.
+
+          **Acceptance Criteria**
+          - Remove links such as About / Privacy / Contact from footer
+          - Retain only minimal copyright
+          - Footer remains responsive and accessible
+
+        labels: [web, layout, polish]
