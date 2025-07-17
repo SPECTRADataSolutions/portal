@@ -27,4 +27,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🛠 Create GitHub Issues from backlog
-        run: python portal/scripts/createGitHubIssues.py
+        run: python scripts/createGitHubIssues.py
