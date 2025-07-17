@@ -6,6 +6,10 @@ on:
     paths:
       - ".codex/tasks/backlog.yaml"
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   create-issues:
     runs-on: ubuntu-latest
