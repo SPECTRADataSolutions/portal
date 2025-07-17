@@ -21,9 +21,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyyaml
 
-      - name: ⚙️ Install GitHub CLI
-        uses: actions/setup-gh@v3
-
       - name: 🔐 Authenticate GitHub CLI
         run: gh auth setup-git
         env:
