@@ -8,21 +8,21 @@ from pathlib import Path
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("codexIssueCreator")
 
-def checkCreateLabelExistence(labelName):
+def checkCreateLabelExistence(labelName, color="ededed"):
     """
-    Ensure the specified GitHub label exists. If it does not, create it using a neutral color.
+    Ensure the specified GitHub label exists. If it does not, create it using a neutral color (default: ededed).
     """
-    result = subprocess.run(["gh", "label", "list"], capture_output=True, text=True)
-    labelList = [line.split()[0] for line in result.stdout.strip().split('\n') if line]
-    if labelName not in labelList:
+    try:
+        # Try to view the label directly for efficiency
+        subprocess.run(["gh", "label", "view", labelName], check=True, capture_output=True, text=True)
+        logger.debug(f"Label '{labelName}' already exists.")
+    except subprocess.CalledProcessError:
         try:
-            subprocess.run(["gh", "label", "create", labelName, "--color", "ededed"], check=True)
+            subprocess.run(["gh", "label", "create", labelName, "--color", color], check=True, capture_output=True, text=True)
+            logger.info(f"Label '{labelName}' created.")
         except subprocess.CalledProcessError as e:
-            if "already exists" in (e.stderr or ""):
-                # Label already exists, safe to continue
-                pass
-            else:
-                raise
+            logger.error(f"Failed to create label '{labelName}': {e.stderr}")
+            raise
 
 def createIssueWithLabels(title, body, labels):
     """
@@ -57,9 +57,13 @@ def processBacklogFile():
         return
 
     try:
-        data = yaml.safe_load(backlogFile.read_text())
+        with open(backlogFile, "r", encoding="utf-8") as f:
+            data = yaml.safe_load(f)
     except yaml.YAMLError as e:
         logger.error(f"Failed to parse YAML: {e}")
+        return
+    except Exception as e:
+        logger.error(f"Error reading backlog file: {e}")
         return
 
     issues = data.get("issues", [])
