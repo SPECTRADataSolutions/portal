@@ -1,7 +1,10 @@
 name: Create GitHub Issues
 
 on:
-  workflow_dispatch:  # 🔘 Manual trigger from GitHub UI
+  workflow_dispatch:  # ✅ Manually run from Actions tab
+  push:               # ✅ Automatically run if backlog.yaml changes
+    paths:
+      - ".codex/tasks/backlog.yaml"
 
 jobs:
   create-issues:
@@ -22,9 +25,7 @@ jobs:
           pip install pyyaml
 
       - name: 🔐 Authenticate GitHub CLI
-        run: gh auth setup-git
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
       - name: 🛠 Create GitHub Issues from backlog
-        run: python scripts/createGitHubIssues.py
+        run: python .codex/scripts/createGitHubIssues.py
