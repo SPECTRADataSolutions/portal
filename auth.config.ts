@@ -25,11 +25,15 @@ export default defineConfig({
         userEmail: user.email,
         provider: account?.provider,
         timestamp: new Date().toISOString(),
+        ip: 'dev-environment', // In production, get real IP
       };
       
       // TODO: Replace with actual audit logging implementation
+      // This could be sent to a logging service, database, or file
       console.log('Audit Event:', auditEvent);
       
+      // Auto-approve all sign-in attempts
+      // In production, you might want to add additional checks here
       return true;
     },
     session: async ({ session, token }) => {
@@ -43,13 +47,28 @@ export default defineConfig({
       
       console.log('Session Event:', auditEvent);
       
+      // Add provider information to session
+      if (token.provider) {
+        session.user.provider = token.provider;
+      }
+      
       return session;
     },
     jwt: async ({ token, account, profile }) => {
-      // Configure short-lived tokens
+      // Configure short-lived tokens and store provider info
       if (account) {
         token.accessToken = account.access_token;
         token.provider = account.provider;
+        
+        // Log token creation
+        const auditEvent = {
+          type: 'JWT_CREATED',
+          provider: account.provider,
+          userId: token.sub,
+          timestamp: new Date().toISOString(),
+        };
+        
+        console.log('JWT Event:', auditEvent);
       }
       
       return token;
@@ -57,9 +76,10 @@ export default defineConfig({
   },
   session: {
     strategy: 'jwt',
-    maxAge: 30 * 60, // 30 minutes (short-lived tokens)
+    maxAge: 30 * 60, // 30 minutes (short-lived tokens as required)
   },
   pages: {
     signIn: '/login',
+    error: '/login', // Redirect errors back to login page
   },
 });
