@@ -28,4 +28,4 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
       - name: 🛠 Create GitHub Issues from backlog
-        run: python .codex/scripts/createGitHubIssues.py
+        run: python scripts/createGitHubIssues.py
