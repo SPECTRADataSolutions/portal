@@ -22,7 +22,7 @@ jobs:
           pip install pyyaml
 
       - name: ⚙️ Install GitHub CLI
-        uses: cli/gh-action@v2
+        uses: actions/setup-gh@v3
 
       - name: 🔐 Authenticate GitHub CLI
         run: gh auth setup-git
