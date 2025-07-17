@@ -1,5 +1,5 @@
 ---
-import { getSession } from 'auth-astro/server';
+import { getSession } from "auth-astro/server";
 
 const session = await getSession(Astro.request);
 ---
@@ -25,7 +25,10 @@ const session = await getSession(Astro.request);
             alt="SPECTRA Logo"
             class="h-8 mr-3"
           />
-          <h1 class="text-xl font-bold" style="font-family: 'Poppins', sans-serif;">
+          <h1
+            class="text-xl font-bold"
+            style="font-family: 'Poppins', sans-serif;"
+          >
             SPECTRA
           </h1>
         </div>
@@ -47,38 +50,44 @@ const session = await getSession(Astro.request);
                 </li>
               </ul>
             </li>
-            {session ? (
-              <>
+            {
+              session ? (
+                <>
+                  <li>
+                    <a href="/dashboard" class="hover:underline">
+                      Dashboard
+                    </a>
+                  </li>
+                  <li class="flex items-center space-x-2">
+                    <img
+                      src={session.user?.image || "/default-avatar.png"}
+                      alt="User Avatar"
+                      class="w-6 h-6 rounded-full"
+                    />
+                    <span class="text-sm">
+                      {session.user?.name || session.user?.email}
+                    </span>
+                  </li>
+                  <li>
+                    <a
+                      href="/api/auth/signout"
+                      class="px-3 py-1 bg-spectra-orange hover:bg-spectra-gold text-spectra-ink rounded text-sm font-medium transition-colors"
+                    >
+                      Sign Out
+                    </a>
+                  </li>
+                </>
+              ) : (
                 <li>
-                  <a href="/dashboard" class="hover:underline">Dashboard</a>
-                </li>
-                <li class="flex items-center space-x-2">
-                  <img 
-                    src={session.user?.image || '/default-avatar.png'} 
-                    alt="User Avatar" 
-                    class="w-6 h-6 rounded-full"
-                  />
-                  <span class="text-sm">{session.user?.name || session.user?.email}</span>
-                </li>
-                <li>
-                  <a 
-                    href="/api/auth/signout"
+                  <a
+                    href="/login"
                     class="px-3 py-1 bg-spectra-orange hover:bg-spectra-gold text-spectra-ink rounded text-sm font-medium transition-colors"
                   >
-                    Sign Out
+                    Sign In
                   </a>
                 </li>
-              </>
-            ) : (
-              <li>
-                <a 
-                  href="/login"
-                  class="px-3 py-1 bg-spectra-orange hover:bg-spectra-gold text-spectra-ink rounded text-sm font-medium transition-colors"
-                >
-                  Sign In
-                </a>
-              </li>
-            )}
+              )
+            }
           </ul>
         </nav>
       </div>
@@ -110,16 +119,31 @@ const session = await getSession(Astro.request);
         </h2>
         <div class="text-lg text-spectra-ink leading-relaxed space-y-4">
           <p>
-            SPECTRA Data Solutions is pioneering the future of data automation through our modular AI-powered pipeline platform. We're on a mission to democratize enterprise-grade data capabilities, making sophisticated data processing accessible to organizations of every size.
+            SPECTRA Data Solutions is pioneering the future of data automation
+            through our modular AI-powered pipeline platform. We're on a mission
+            to democratize enterprise-grade data capabilities, making
+            sophisticated data processing accessible to organizations of every
+            size.
           </p>
           <p>
-            Our goal is to eliminate the complexity and cost barriers that have traditionally prevented businesses from harnessing the full potential of their data. By providing intelligent, automated data pipelines that integrate seamlessly with Microsoft Fabric, we're empowering organizations to focus on insights rather than infrastructure.
+            Our goal is to eliminate the complexity and cost barriers that have
+            traditionally prevented businesses from harnessing the full
+            potential of their data. By providing intelligent, automated data
+            pipelines that integrate seamlessly with Microsoft Fabric, we're
+            empowering organizations to focus on insights rather than
+            infrastructure.
           </p>
           <p>
-            <strong>For small businesses:</strong> We offer affordable, plug-and-play solutions that provide enterprise-level data capabilities without the enterprise-level complexity or cost. Get started quickly with pre-built connectors and automated workflows that scale with your growth.
+            <strong>For small businesses:</strong> We offer affordable, plug-and-play
+            solutions that provide enterprise-level data capabilities without the
+            enterprise-level complexity or cost. Get started quickly with pre-built
+            connectors and automated workflows that scale with your growth.
           </p>
           <p>
-            <strong>For large enterprises:</strong> We deliver comprehensive, scalable data architecture that handles complex multi-source integrations, advanced governance requirements, and enterprise-grade security while reducing operational overhead and time-to-insight.
+            <strong>For large enterprises:</strong> We deliver comprehensive, scalable
+            data architecture that handles complex multi-source integrations, advanced
+            governance requirements, and enterprise-grade security while reducing
+            operational overhead and time-to-insight.
           </p>
         </div>
       </div>
@@ -214,21 +238,23 @@ const session = await getSession(Astro.request);
       <h2 class="text-2xl font-semibold mb-4">
         Ready to see the SPECTRA effect?
       </h2>
-      {session ? (
-        <a
-          href="/dashboard"
-          class="inline-block px-6 py-3 bg-spectra-gold hover:bg-spectra-orange text-spectra-ink rounded-lg shadow-md transition"
-        >
-          Go to Dashboard
-        </a>
-      ) : (
-        <a
-          href="/login"
-          class="inline-block px-6 py-3 bg-spectra-gold hover:bg-spectra-orange text-spectra-ink rounded-lg shadow-md transition"
-        >
-          Sign In to Get Started
-        </a>
-      )}
+      {
+        session ? (
+          <a
+            href="/dashboard"
+            class="inline-block px-6 py-3 bg-spectra-gold hover:bg-spectra-orange text-spectra-ink rounded-lg shadow-md transition"
+          >
+            Go to Dashboard
+          </a>
+        ) : (
+          <a
+            href="/login"
+            class="inline-block px-6 py-3 bg-spectra-gold hover:bg-spectra-orange text-spectra-ink rounded-lg shadow-md transition"
+          >
+            Sign In to Get Started
+          </a>
+        )
+      }
     </section>
   </body>
 </html>
