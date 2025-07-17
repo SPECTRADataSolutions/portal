@@ -10,13 +10,19 @@ logger = logging.getLogger("codexIssueCreator")
 
 def checkCreateLabelExistence(labelName):
     """
-    Ensure the specified GitHub label exists. If it does not, create it using a neutral colour.
+    Ensure the specified GitHub label exists. If it does not, create it using a neutral color.
     """
     result = subprocess.run(["gh", "label", "list"], capture_output=True, text=True)
     labelList = [line.split()[0] for line in result.stdout.strip().split('\n') if line]
     if labelName not in labelList:
-        # Create the label using a light neutral colour
-        subprocess.run(["gh", "label", "create", labelName, "--colour", "ededed"], check=True)
+        try:
+            subprocess.run(["gh", "label", "create", labelName, "--color", "ededed"], check=True)
+        except subprocess.CalledProcessError as e:
+            if "already exists" in (e.stderr or ""):
+                # Label already exists, safe to continue
+                pass
+            else:
+                raise
 
 def createIssueWithLabels(title, body, labels):
     """
