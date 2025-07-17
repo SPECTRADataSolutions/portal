@@ -6,19 +6,19 @@ from pathlib import Path
 
 # Set up logger
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
-logger = logging.getLogger("codex-issue-creator")
+logger = logging.getLogger("codexIssueCreator")
 
 
-def create_issue(title: str, body: str, labels: list[str]) -> None:
+def createIssue(title: str, body: str, labels: list[str]) -> None:
     if shutil.which("gh") is None:
         logger.error("GitHub CLI 'gh' is not installed or not in PATH.")
         raise EnvironmentError("GitHub CLI 'gh' is not installed")
 
-    label_args = []
+    labelArgs = []
     for label in labels:
-        label_args.extend(["--label", label])
+        labelArgs.extend(["--label", label])
 
-    cmd = ["gh", "issue", "create", "--title", title, "--body", body] + label_args
+    cmd = ["gh", "issue", "create", "--title", title, "--body", body] + labelArgs
     logger.debug(f"Running command: {' '.join(cmd)}")
 
     try:
@@ -32,15 +32,15 @@ def create_issue(title: str, body: str, labels: list[str]) -> None:
 
 
 def main() -> None:
-    backlog_file = Path(__file__).resolve().parent.parent / ".codex/tasks/backlog.yaml"
-    logger.debug(f"Reading backlog from: {backlog_file}")
+    backlogFile = Path(__file__).resolve().parent.parent / ".codex/tasks/backlog.yaml"
+    logger.debug(f"Reading backlog from: {backlogFile}")
 
-    if not backlog_file.exists():
-        logger.error(f"Backlog file does not exist: {backlog_file}")
+    if not backlogFile.exists():
+        logger.error(f"Backlog file does not exist: {backlogFile}")
         return
 
     try:
-        data = yaml.safe_load(backlog_file.read_text())
+        data = yaml.safe_load(backlogFile.read_text())
     except yaml.YAMLError as e:
         logger.error(f"Failed to parse YAML: {e}")
         return
@@ -49,16 +49,16 @@ def main() -> None:
     logger.info(f"Found {len(issues)} epics in backlog")
 
     for epic in issues:
-        epic_name = epic.get("epic", "Unknown Epic")
-        logger.debug(f"Processing epic: {epic_name}")
+        epicName = epic.get("epic", "Unknown Epic")
+        logger.debug(f"Processing epic: {epicName}")
 
         for story in epic.get("stories", []):
-            title = f"[{epic_name}] {story['title']}"
+            title = f"[{epicName}] {story['title']}"
             body = story.get("body", "")
             labels = story.get("labels", [])
 
             logger.debug(f"Creating issue: {title}")
-            create_issue(title, body, labels)
+            createIssue(title, body, labels)
 
 
 if __name__ == "__main__":
