@@ -1,0 +1,131 @@
+project: Spectra Portal
+repo: portal
+issues:
+  - epic: Authentication & Identity
+    stories:
+      - title: Enable Google and Apple login
+        body: |
+          As a client, I want to sign in using my Apple or Google account so I don’t have to remember a separate password.
+
+          **Acceptance Criteria**
+          - Google OAuth via OpenID Connect
+          - Apple Sign-In approved by Apple
+          - Auto-create user record on first login
+          - Redirect return users to dashboard
+          - Secure short-lived session tokens
+          - Log all auth events to audit trail
+        labels: [auth, identity, high-priority]
+
+      - title: Implement client profile management
+        body: |
+          As a client, I want to view and update my profile details.
+
+          **Acceptance Criteria**
+          - Fields: name, email, phone, company, photo
+          - Validates email and phone format
+          - Updates saved to DB and confirmed
+          - Logs profile changes
+        labels: [profile, client, medium-priority]
+
+  - epic: Project Lifecycle Management
+    stories:
+      - title: Show all projects on dashboard
+        body: |
+          As a client, I want to see all my projects at a glance with their current status.
+
+          **Acceptance Criteria**
+          - Card/list view with statuses
+          - Show name, creation, last update, stage
+          - Filter by status
+          - Click-through to detail view
+        labels: [dashboard, projects]
+
+      - title: Display detailed project view
+        body: |
+          As a client, I want to click into a project and see all relevant metadata and activity.
+
+          **Acceptance Criteria**
+          - Project ID, name, dates, agent, milestone timeline
+          - Files, deliverables, comments
+          - Codex activity log included
+        labels: [project, detail-view]
+
+      - title: Build new project request flow
+        body: |
+          As a client, I want to request a new project so I can engage Spectra.
+
+          **Acceptance Criteria**
+          - New project form with fields
+          - Auto-ticket creation
+          - Status shown as “Pending Review”
+          - Email confirmation
+        labels: [request, project, client-action]
+
+  - epic: Subscription & Billing
+    stories:
+      - title: Show current plan and details
+        body: |
+          As a client, I want to view my plan and included features.
+
+          **Acceptance Criteria**
+          - Plan name, tier, features
+          - Monthly/yearly billing
+          - Upgrade link
+        labels: [billing, subscription]
+
+      - title: View/download past invoices
+        body: |
+          As a client, I want to see all invoices and download PDFs.
+
+          **Acceptance Criteria**
+          - Show invoices by date, amount, status
+          - Download PDF
+          - Email invoices
+          - Link to payment if unpaid
+        labels: [billing, finance]
+
+  - epic: Client-Agent Collaboration
+    stories:
+      - title: View assigned Spectra agents
+        body: |
+          As a client, I want to know who’s managing my work.
+
+          **Acceptance Criteria**
+          - Agent name, bio, role
+          - Status indicator
+          - Activity summary
+        labels: [agents, UX]
+
+      - title: Comment on project threads
+        body: |
+          As a client, I want to leave comments and updates on a project.
+
+          **Acceptance Criteria**
+          - Comment thread with @mentions
+          - Threaded replies
+          - Email notifications
+        labels: [comment, UX, comms]
+
+  - epic: Codex Activity Timeline
+    stories:
+      - title: View Codex project activity log
+        body: |
+          As a client, I want to see Codex actions on my project.
+
+          **Acceptance Criteria**
+          - Timeline of commits, PRs, deployments
+          - Timestamped log grouped by day
+          - GitHub webhook integration
+        labels: [codex, audit, transparency]
+
+  - epic: Reporting & KPIs
+    stories:
+      - title: View project analytics and KPIs
+        body: |
+          As a client, I want to see visuals for project progress.
+
+          **Acceptance Criteria**
+          - Burndown, % complete, agent hours
+          - Power BI or Fabric embedded
+          - Export to PNG or PDF
+        labels: [reporting, analytics, PowerBI]
