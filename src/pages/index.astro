@@ -14,6 +14,31 @@ const session = await getSession(Astro.request);
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"
     />
     <link rel="stylesheet" href="/src/styles/global.css" />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      .nav-link {
+        position: relative;
+        transition: color 0.3s ease;
+      }
+      
+      .nav-link.active {
+        color: #FED100;
+      }
+      
+      .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #FED100;
+        border-radius: 1px;
+      }
+    </style>
   </head>
   <body class="bg-spectra-smoke text-spectra-ink font-sans">
     <!-- Title Bar -->
@@ -33,22 +58,18 @@ const session = await getSession(Astro.request);
           </h1>
         </div>
         <nav>
-          <ul class="flex space-x-4 items-center">
-            <li class="relative group">
-              <a href="#" class="hover:underline">Explore</a>
-              <ul
-                class="absolute hidden group-hover:block bg-white text-spectra-ink shadow-lg mt-2 py-2 z-10"
-              >
-                <li class="hover:bg-gray-100">
-                  <a href="/about" class="block px-4 py-2">About Us</a>
-                </li>
-                <li class="hover:bg-gray-100">
-                  <a href="/contact" class="block px-4 py-2">Contact Us</a>
-                </li>
-                <li class="hover:bg-gray-100">
-                  <a href="/vision" class="block px-4 py-2">Our Vision</a>
-                </li>
-              </ul>
+          <ul class="flex space-x-6 items-center">
+            <li>
+              <a href="#about" class="nav-link hover:text-spectra-gold transition-colors">About Us</a>
+            </li>
+            <li>
+              <a href="#what-we-do" class="nav-link hover:text-spectra-gold transition-colors">What We Do</a>
+            </li>
+            <li>
+              <a href="#framework" class="nav-link hover:text-spectra-gold transition-colors">Framework</a>
+            </li>
+            <li>
+              <a href="#contact" class="nav-link hover:text-spectra-gold transition-colors">Contact</a>
             </li>
             {
               session ? (
@@ -112,10 +133,10 @@ const session = await getSession(Astro.request);
     </section>
 
     <!-- About SPECTRA -->
-    <section class="py-20 px-6 bg-spectra-smoke">
+    <section id="about" class="py-20 px-6 bg-spectra-smoke">
       <div class="max-w-4xl mx-auto text-center">
         <h2 class="text-3xl font-bold text-spectra-blue mb-6">
-          What is SPECTRA?
+          About SPECTRA
         </h2>
         <div class="text-lg text-spectra-ink leading-relaxed space-y-4">
           <p>
@@ -160,14 +181,14 @@ const session = await getSession(Astro.request);
         <img src="/logos/lloyds.svg" alt="Lloyds of London" class="h-10" />
       </div>
     </section>
-    <!-- Spectra Engine -->
-    <section id="engine" class="py-20 px-6 bg-spectra-cloud">
+    <!-- What We Do -->
+    <section id="what-we-do" class="py-20 px-6 bg-spectra-cloud">
       <div class="max-w-5xl mx-auto text-center">
         <h2 class="text-3xl font-bold text-spectra-blue mb-4">
-          The SPECTRA Engine
+          What We Do
         </h2>
         <p class="text-lg text-spectra-ink mb-8">
-          Designed to automate every stage of your data lifecycle.
+          The SPECTRA Engine is designed to automate every stage of your data lifecycle.
         </p>
         <div class="flex flex-wrap justify-center gap-4 text-left">
           <div class="bg-white p-2 rounded shadow w-40">
@@ -216,6 +237,56 @@ const session = await getSession(Astro.request);
       </div>
     </section>
 
+    <!-- Framework -->
+    <section id="framework" class="py-20 px-6 bg-spectra-smoke">
+      <div class="max-w-5xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-spectra-blue mb-4">
+          Framework
+        </h2>
+        <p class="text-lg text-spectra-ink mb-8">
+          Our modular framework provides the foundation for scalable data solutions.
+        </p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="font-bold text-spectra-blue text-lg mb-3">Modular Architecture</h3>
+            <p class="text-sm text-spectra-ink">
+              Built with microservices architecture enabling flexible deployment and scaling of individual components.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="font-bold text-spectra-blue text-lg mb-3">Microsoft Fabric Integration</h3>
+            <p class="text-sm text-spectra-ink">
+              Native integration with Microsoft Fabric for seamless data platform experiences.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="font-bold text-spectra-blue text-lg mb-3">AI-Powered Automation</h3>
+            <p class="text-sm text-spectra-ink">
+              Intelligent automation that learns and adapts to optimize data processing workflows.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="font-bold text-spectra-blue text-lg mb-3">Enterprise Security</h3>
+            <p class="text-sm text-spectra-ink">
+              Advanced security features including encryption, access controls, and compliance monitoring.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="font-bold text-spectra-blue text-lg mb-3">Scalable Performance</h3>
+            <p class="text-sm text-spectra-ink">
+              Designed to handle data volumes from small datasets to enterprise-scale processing.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="font-bold text-spectra-blue text-lg mb-3">Real-time Processing</h3>
+            <p class="text-sm text-spectra-ink">
+              Support for both batch and real-time data processing to meet diverse business needs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Explore More -->
     <section class="py-20 px-6 text-center">
       <h2 class="text-3xl font-bold text-spectra-blue mb-4">Explore More</h2>
@@ -230,6 +301,44 @@ const session = await getSession(Astro.request);
           class="px-6 py-3 bg-spectra-blue text-white rounded-lg shadow-md hover:bg-spectra-orange transition"
           >Strategic Plan</a
         >
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-20 px-6 bg-spectra-cloud">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-spectra-blue mb-6">
+          Contact Us
+        </h2>
+        <p class="text-lg text-spectra-ink mb-8">
+          Ready to transform your data infrastructure? Get in touch with our team.
+        </p>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-white p-8 rounded-lg shadow-md">
+            <h3 class="text-xl font-bold text-spectra-blue mb-4">Get Started</h3>
+            <p class="text-spectra-ink mb-4">
+              Schedule a consultation to discuss your data needs and explore how SPECTRA can help.
+            </p>
+            <a
+              href="/contact"
+              class="inline-block px-6 py-3 bg-spectra-blue text-white rounded-lg shadow-md hover:bg-spectra-orange transition"
+            >
+              Contact Form
+            </a>
+          </div>
+          <div class="bg-white p-8 rounded-lg shadow-md">
+            <h3 class="text-xl font-bold text-spectra-blue mb-4">Learn More</h3>
+            <p class="text-spectra-ink mb-4">
+              Explore our comprehensive documentation and resources to understand our solutions.
+            </p>
+            <a
+              href="/vision"
+              class="inline-block px-6 py-3 bg-spectra-blue text-white rounded-lg shadow-md hover:bg-spectra-orange transition"
+            >
+              Our Vision
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -256,5 +365,36 @@ const session = await getSession(Astro.request);
         )
       }
     </section>
+
+    <script>
+      // Handle active navigation state based on scroll position
+      const navLinks = document.querySelectorAll('.nav-link');
+      const sections = document.querySelectorAll('section[id]');
+      
+      function updateActiveNavigation() {
+        const scrollPosition = window.scrollY + 100; // Offset for header
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          const sectionId = section.getAttribute('id');
+          
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            navLinks.forEach(link => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === `#${sectionId}`) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      }
+      
+      // Update active navigation on scroll
+      window.addEventListener('scroll', updateActiveNavigation);
+      
+      // Update active navigation on page load
+      updateActiveNavigation();
+    </script>
   </body>
 </html>
