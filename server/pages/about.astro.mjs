@@ -1,4 +1,11 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>About Us | SPECTRA Data Solutions</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"><link rel="stylesheet" href="/src/styles/global.css"><link rel="stylesheet" href="/_astro/about.Dpp1RpFl.css"></head> <body class="bg-spectra-smoke text-spectra-ink font-sans"> <!-- Title Bar --> <header class="bg-spectra-blue text-white py-4 px-6"> <div class="max-w-5xl mx-auto flex justify-end items-center"> <nav> <ul class="flex space-x-4"> <li class="relative group"> <a href="#" class="hover:underline">Explore</a> <ul class="absolute hidden group-hover:block bg-white text-spectra-ink shadow-lg mt-2 py-2"> <li class="hover:bg-gray-100"> <a href="/about" class="block px-4 py-2">About Us</a> </li> <li class="hover:bg-gray-100"> <a href="/contact" class="block px-4 py-2">Contact Us</a> </li> <li class="hover:bg-gray-100"> <a href="/vision" class="block px-4 py-2">Our Vision</a> </li> </ul> </li> </ul> </nav> </div> </header> <!-- Hero Section --> <section class="bg-spectra-dark text-spectra-cloud py-20 px-6 text-center"> <img src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true" alt="SPECTRA Logo" class="mx-auto mb-4 h-20"> <h1 class="text-6xl font-bold tracking-tight" style="font-family: 'Poppins', sans-serif;">
+/* empty css                                 */
+import { e as createComponent, k as renderHead, r as renderTemplate } from '../chunks/astro/server_PQjVkaSF.mjs';
+import 'kleur/colors';
+import 'clsx';
+export { renderers } from '../renderers.mjs';
+
+const $$About = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`<html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>About Us | SPECTRA Data Solutions</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"><link rel="stylesheet" href="/src/styles/global.css">${renderHead()}</head> <body class="bg-spectra-smoke text-spectra-ink font-sans"> <!-- Title Bar --> <header class="bg-spectra-blue text-white py-4 px-6"> <div class="max-w-5xl mx-auto flex justify-end items-center"> <nav> <ul class="flex space-x-4"> <li class="relative group"> <a href="#" class="hover:underline">Explore</a> <ul class="absolute hidden group-hover:block bg-white text-spectra-ink shadow-lg mt-2 py-2"> <li class="hover:bg-gray-100"> <a href="/about" class="block px-4 py-2">About Us</a> </li> <li class="hover:bg-gray-100"> <a href="/contact" class="block px-4 py-2">Contact Us</a> </li> <li class="hover:bg-gray-100"> <a href="/vision" class="block px-4 py-2">Our Vision</a> </li> </ul> </li> </ul> </nav> </div> </header> <!-- Hero Section --> <section class="bg-spectra-dark text-spectra-cloud py-20 px-6 text-center"> <img src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true" alt="SPECTRA Logo" class="mx-auto mb-4 h-20"> <h1 class="text-6xl font-bold tracking-tight" style="font-family: 'Poppins', sans-serif;">
 About SPECTRA
 </h1> <p class="text-xl mt-4">
 Pioneering the future of data automation
@@ -30,4 +37,19 @@ What Sets Us Apart
 </p> <p> <strong>Dual Focus:</strong> We serve both small businesses seeking affordable data solutions and large enterprises requiring comprehensive, scalable data architecture.
 </p> </div> </div> </section> <!-- Call to Action --> <section class="py-20 px-6 text-center"> <h2 class="text-3xl font-bold text-spectra-blue mb-4">Learn More About SPECTRA</h2> <div class="flex justify-center gap-6"> <a href="/vision" class="px-6 py-3 bg-spectra-blue text-white rounded-lg shadow-md hover:bg-spectra-orange transition">Our Vision</a> <a href="/contact" class="px-6 py-3 bg-spectra-blue text-white rounded-lg shadow-md hover:bg-spectra-orange transition">Contact Us</a> </div> </section> <!-- CTA Footer --> <section class="bg-spectra-blue text-white py-12 px-6 text-center"> <h2 class="text-2xl font-semibold mb-4">
 Ready to transform your data capabilities?
-</h2> <a href="#" class="inline-block px-6 py-3 bg-spectra-gold hover:bg-spectra-orange text-spectra-ink rounded-lg shadow-md transition">Get Started Today</a> </section> </body></html>
+</h2> <a href="#" class="inline-block px-6 py-3 bg-spectra-gold hover:bg-spectra-orange text-spectra-ink rounded-lg shadow-md transition">Get Started Today</a> </section> </body></html>`;
+}, "/home/runner/work/portal/portal/src/pages/about.astro", void 0);
+
+const $$file = "/home/runner/work/portal/portal/src/pages/about.astro";
+const $$url = "/about";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$About,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

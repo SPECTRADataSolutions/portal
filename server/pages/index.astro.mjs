@@ -1,4 +1,21 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SPECTRA | Modular AI-Powered Pipelines</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"><link rel="stylesheet" href="/src/styles/global.css"><link rel="stylesheet" href="/_astro/about.Dpp1RpFl.css"></head> <body class="bg-spectra-smoke text-spectra-ink font-sans"> <!-- Title Bar --> <header class="bg-spectra-blue text-white py-4 px-6"> <div class="max-w-5xl mx-auto flex justify-end items-center"> <nav> <ul class="flex space-x-4"> <li class="relative group"> <a href="#" class="hover:underline">Explore</a> <ul class="absolute hidden group-hover:block bg-white text-spectra-ink shadow-lg mt-2 py-2"> <li class="hover:bg-gray-100"> <a href="/about" class="block px-4 py-2">About Us</a> </li> <li class="hover:bg-gray-100"> <a href="/contact" class="block px-4 py-2">Contact Us</a> </li> <li class="hover:bg-gray-100"> <a href="/vision" class="block px-4 py-2">Our Vision</a> </li> </ul> </li> </ul> </nav> </div> </header> <!-- Hero Section --> <section class="bg-spectra-dark text-spectra-cloud py-20 px-6 text-center"> <img src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true" alt="SPECTRA Logo" class="mx-auto mb-4 h-20"> <h1 class="text-6xl font-bold tracking-tight" style="font-family: 'Poppins', sans-serif;">
+/* empty css                                 */
+import { e as createComponent, f as createAstro, k as renderHead, n as renderComponent, r as renderTemplate, h as addAttribute, o as Fragment } from '../chunks/astro/server_PQjVkaSF.mjs';
+import 'kleur/colors';
+import { g as getSession } from '../chunks/server_D-48n0z3.mjs';
+export { renderers } from '../renderers.mjs';
+
+const $$Astro = createAstro();
+const $$Index = createComponent(async ($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
+  Astro2.self = $$Index;
+  const session = await getSession(Astro2.request);
+  return renderTemplate`<html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SPECTRA | Modular AI-Powered Pipelines</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"><link rel="stylesheet" href="/src/styles/global.css">${renderHead()}</head> <body class="bg-spectra-smoke text-spectra-ink font-sans"> <!-- Title Bar --> <header class="bg-spectra-blue text-white py-4 px-6"> <div class="max-w-5xl mx-auto flex justify-between items-center"> <div class="flex items-center"> <img src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true" alt="SPECTRA Logo" class="h-8 mr-3"> <h1 class="text-xl font-bold" style="font-family: 'Poppins', sans-serif;">
+SPECTRA
+</h1> </div> <nav> <ul class="flex space-x-4 items-center"> <li class="relative group"> <a href="#" class="hover:underline">Explore</a> <ul class="absolute hidden group-hover:block bg-white text-spectra-ink shadow-lg mt-2 py-2 z-10"> <li class="hover:bg-gray-100"> <a href="/about" class="block px-4 py-2">About Us</a> </li> <li class="hover:bg-gray-100"> <a href="/contact" class="block px-4 py-2">Contact Us</a> </li> <li class="hover:bg-gray-100"> <a href="/vision" class="block px-4 py-2">Our Vision</a> </li> </ul> </li> ${session ? renderTemplate`${renderComponent($$result, "Fragment", Fragment, {}, { "default": async ($$result2) => renderTemplate` <li> <a href="/dashboard" class="hover:underline">Dashboard</a> </li> <li class="flex items-center space-x-2"> <img${addAttribute(session.user?.image || "/default-avatar.png", "src")} alt="User Avatar" class="w-6 h-6 rounded-full"> <span class="text-sm">${session.user?.name || session.user?.email}</span> </li> <li> <a href="/api/auth/signout" class="px-3 py-1 bg-spectra-orange hover:bg-spectra-gold text-spectra-ink rounded text-sm font-medium transition-colors">
+Sign Out
+</a> </li> ` })}` : renderTemplate`<li> <a href="/login" class="px-3 py-1 bg-spectra-orange hover:bg-spectra-gold text-spectra-ink rounded text-sm font-medium transition-colors">
+Sign In
+</a> </li>`} </ul> </nav> </div> </header> <!-- Hero Section --> <section class="bg-spectra-dark text-spectra-cloud py-20 px-6 text-center"> <img src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true" alt="SPECTRA Logo" class="mx-auto mb-4 h-20"> <h1 class="text-6xl font-bold tracking-tight" style="font-family: 'Poppins', sans-serif;">
 SPECTRA
 </h1> <p class="text-xl mt-4">
 Modular AI-powered data pipelines for Microsoft Fabric
@@ -32,4 +49,23 @@ Optimise for cost, scale, performance and storage class.
 Power BI, Fabric, semantic KPIs and AI triggers.
 </p> </div> </div> </div> </section> <!-- Explore More --> <section class="py-20 px-6 text-center"> <h2 class="text-3xl font-bold text-spectra-blue mb-4">Explore More</h2> <div class="flex justify-center gap-6"> <a href="/vision" class="px-6 py-3 bg-spectra-blue text-white rounded-lg shadow-md hover:bg-spectra-orange transition">Our Vision</a> <a href="/strategic-plan" class="px-6 py-3 bg-spectra-blue text-white rounded-lg shadow-md hover:bg-spectra-orange transition">Strategic Plan</a> </div> </section> <!-- CTA Footer --> <section class="bg-spectra-blue text-white py-12 px-6 text-center"> <h2 class="text-2xl font-semibold mb-4">
 Ready to see the SPECTRA effect?
-</h2> <a href="#" class="inline-block px-6 py-3 bg-spectra-gold hover:bg-spectra-orange text-spectra-ink rounded-lg shadow-md transition">Book a Demo</a> </section> </body></html>
+</h2> ${session ? renderTemplate`<a href="/dashboard" class="inline-block px-6 py-3 bg-spectra-gold hover:bg-spectra-orange text-spectra-ink rounded-lg shadow-md transition">
+Go to Dashboard
+</a>` : renderTemplate`<a href="/login" class="inline-block px-6 py-3 bg-spectra-gold hover:bg-spectra-orange text-spectra-ink rounded-lg shadow-md transition">
+Sign In to Get Started
+</a>`} </section> </body></html>`;
+}, "/home/runner/work/portal/portal/src/pages/index.astro", void 0);
+
+const $$file = "/home/runner/work/portal/portal/src/pages/index.astro";
+const $$url = "";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Index,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

@@ -1,4 +1,11 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Contact Us | SPECTRA Data Solutions</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"><link rel="stylesheet" href="/src/styles/global.css"><link rel="stylesheet" href="/_astro/about.Dpp1RpFl.css"></head> <body class="bg-spectra-smoke text-spectra-ink font-sans"> <!-- Title Bar --> <header class="bg-spectra-blue text-white py-4 px-6"> <div class="max-w-5xl mx-auto flex justify-end items-center"> <nav> <ul class="flex space-x-4"> <li class="relative group"> <a href="#" class="hover:underline">Explore</a> <ul class="absolute hidden group-hover:block bg-white text-spectra-ink shadow-lg mt-2 py-2"> <li class="hover:bg-gray-100"> <a href="/about" class="block px-4 py-2">About Us</a> </li> <li class="hover:bg-gray-100"> <a href="/contact" class="block px-4 py-2">Contact Us</a> </li> <li class="hover:bg-gray-100"> <a href="/vision" class="block px-4 py-2">Our Vision</a> </li> </ul> </li> </ul> </nav> </div> </header> <!-- Hero Section --> <section class="bg-spectra-dark text-spectra-cloud py-20 px-6 text-center"> <img src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true" alt="SPECTRA Logo" class="mx-auto mb-4 h-20"> <h1 class="text-6xl font-bold tracking-tight" style="font-family: 'Poppins', sans-serif;">
+/* empty css                                 */
+import { e as createComponent, k as renderHead, r as renderTemplate } from '../chunks/astro/server_PQjVkaSF.mjs';
+import 'kleur/colors';
+import 'clsx';
+export { renderers } from '../renderers.mjs';
+
+const $$Contact = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`<html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Contact Us | SPECTRA Data Solutions</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"><link rel="stylesheet" href="/src/styles/global.css">${renderHead()}</head> <body class="bg-spectra-smoke text-spectra-ink font-sans"> <!-- Title Bar --> <header class="bg-spectra-blue text-white py-4 px-6"> <div class="max-w-5xl mx-auto flex justify-end items-center"> <nav> <ul class="flex space-x-4"> <li class="relative group"> <a href="#" class="hover:underline">Explore</a> <ul class="absolute hidden group-hover:block bg-white text-spectra-ink shadow-lg mt-2 py-2"> <li class="hover:bg-gray-100"> <a href="/about" class="block px-4 py-2">About Us</a> </li> <li class="hover:bg-gray-100"> <a href="/contact" class="block px-4 py-2">Contact Us</a> </li> <li class="hover:bg-gray-100"> <a href="/vision" class="block px-4 py-2">Our Vision</a> </li> </ul> </li> </ul> </nav> </div> </header> <!-- Hero Section --> <section class="bg-spectra-dark text-spectra-cloud py-20 px-6 text-center"> <img src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true" alt="SPECTRA Logo" class="mx-auto mb-4 h-20"> <h1 class="text-6xl font-bold tracking-tight" style="font-family: 'Poppins', sans-serif;">
 Contact Us
 </h1> <p class="text-xl mt-4">
 Get in touch with the SPECTRA team
@@ -30,4 +37,19 @@ Schedule Demo
 ← Back to Homepage
 </a> <a href="/about" class="px-6 py-3 border border-spectra-blue text-spectra-blue rounded-lg shadow-md hover:bg-spectra-blue hover:text-white transition">
 About SPECTRA
-</a> </div> </div> </section> </body></html>
+</a> </div> </div> </section> </body></html>`;
+}, "/home/runner/work/portal/portal/src/pages/contact.astro", void 0);
+
+const $$file = "/home/runner/work/portal/portal/src/pages/contact.astro";
+const $$url = "/contact";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Contact,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };
