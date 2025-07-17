@@ -4,18 +4,27 @@ import yaml
 import logging
 from pathlib import Path
 
-# Set up logger
+# Initialise logger once per script
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("codexIssueCreator")
 
+def checkCreateLabelExistence(labelName):
+    """
+    Ensure the specified GitHub label exists. If it does not, create it using a neutral colour.
+    """
+    result = subprocess.run(["gh", "label", "list"], capture_output=True, text=True)
+    labelList = [line.split()[0] for line in result.stdout.strip().split('\n') if line]
+    if labelName not in labelList:
+        # Create the label using a light neutral colour
+        subprocess.run(["gh", "label", "create", labelName, "--colour", "ededed"], check=True)
 
-def createIssue(title: str, body: str, labels: list[str]) -> None:
-    if shutil.which("gh") is None:
-        logger.error("GitHub CLI 'gh' is not installed or not in PATH.")
-        raise EnvironmentError("GitHub CLI 'gh' is not installed")
-
+def createIssueWithLabels(title, body, labels):
+    """
+    Create a GitHub issue with the specified title, body, and labels, ensuring all labels exist first.
+    """
     labelArgs = []
     for label in labels:
+        checkCreateLabelExistence(label)  # Ensure label exists before adding
         labelArgs.extend(["--label", label])
 
     cmd = ["gh", "issue", "create", "--title", title, "--body", body] + labelArgs
@@ -30,8 +39,10 @@ def createIssue(title: str, body: str, labels: list[str]) -> None:
         logger.error(f"stderr:\n{e.stderr}")
         raise
 
-
-def main() -> None:
+def processBacklogFile():
+    """
+    Load the backlog YAML file and create issues for all stories, ensuring labels exist.
+    """
     backlogFile = Path(__file__).resolve().parent.parent / ".codex/tasks/backlog.yaml"
     logger.debug(f"Reading backlog from: {backlogFile}")
 
@@ -58,8 +69,7 @@ def main() -> None:
             labels = story.get("labels", [])
 
             logger.debug(f"Creating issue: {title}")
-            createIssue(title, body, labels)
-
+            createIssueWithLabels(title, body, labels)
 
 if __name__ == "__main__":
-    main()
+    processBacklogFile()
