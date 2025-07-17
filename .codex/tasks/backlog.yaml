@@ -1,131 +1,135 @@
-project: Spectra Portal
-repo: portal
+epics:
+  - title: "🏠 Revamp homepage"
+    body: |
+      As a user visiting the Spectra website,
+      I want a clean, purposeful homepage that clearly conveys Spectra’s identity,
+      So that I can quickly understand what Spectra is and navigate to other sections easily.
+
+      This epic contains tasks to redesign the homepage layout, navigation, content placement, branding, and integration with other sections of the site.
+
+      Acceptance Criteria:
+      - Homepage is minimal, professional, and accessible.
+      - Key pages are linked from the navigation bar.
+      - Branding is clean and consistent with Spectra's identity.
+      - Page sections are modular and reusable.
+      - All linked issues are closed to consider this epic complete.
+
+    labels: ["epic", "website", "frontend"]
+
 issues:
-  - epic: Authentication & Identity
-    stories:
-      - title: Enable Google and Apple login
-        body: |
-          As a client, I want to sign in using my Apple or Google account so I don’t have to remember a separate password.
+  - title: "🔗 Create navigation structure with page links"
+    body: |
+      **User Story**  
+      As a visitor to the Spectra website,  
+      I want to see clear navigation links to all key sections,  
+      So that I can easily explore what Spectra offers.
 
-          **Acceptance Criteria**
-          - Google OAuth via OpenID Connect
-          - Apple Sign-In approved by Apple
-          - Auto-create user record on first login
-          - Redirect return users to dashboard
-          - Secure short-lived session tokens
-          - Log all auth events to audit trail
-        labels: [auth, identity, high-priority]
+      **Requirements**  
+      - Navigation bar at top of the homepage  
+      - Links: About Us, What We Do, Framework, Contact, Login  
+      - Each link routes to a scroll target or dedicated page
 
-      - title: Implement client profile management
-        body: |
-          As a client, I want to view and update my profile details.
+      **Acceptance Criteria**  
+      - Navigation bar is visible and styled consistently  
+      - All links work and route correctly  
+      - Active section is visually indicated (e.g. highlight)
 
-          **Acceptance Criteria**
-          - Fields: name, email, phone, company, photo
-          - Validates email and phone format
-          - Updates saved to DB and confirmed
-          - Logs profile changes
-        labels: [profile, client, medium-priority]
+    labels: ["web", "navigation"]
+    epic: "🏠 Revamp homepage"
 
-  - epic: Project Lifecycle Management
-    stories:
-      - title: Show all projects on dashboard
-        body: |
-          As a client, I want to see all my projects at a glance with their current status.
+  - title: "🚫 Remove logo from header, retain tagline"
+    body: |
+      **User Story**  
+      As a designer of the homepage,  
+      I want to remove the redundant logo from the top header,  
+      So that the tagline becomes the core identity element.
 
-          **Acceptance Criteria**
-          - Card/list view with statuses
-          - Show name, creation, last update, stage
-          - Filter by status
-          - Click-through to detail view
-        labels: [dashboard, projects]
+      **Requirements**  
+      - Remove Spectra logo graphic from header  
+      - Retain and properly style tagline: “Schema-driven. AI-powered. Neurodiverse by design.”
 
-      - title: Display detailed project view
-        body: |
-          As a client, I want to click into a project and see all relevant metadata and activity.
+      **Acceptance Criteria**  
+      - No visual logo in the header  
+      - Tagline is visible, readable, and correctly placed  
+      - Works across mobile and desktop
 
-          **Acceptance Criteria**
-          - Project ID, name, dates, agent, milestone timeline
-          - Files, deliverables, comments
-          - Codex activity log included
-        labels: [project, detail-view]
+    labels: ["web", "branding"]
+    epic: "🏠 Revamp homepage"
 
-      - title: Build new project request flow
-        body: |
-          As a client, I want to request a new project so I can engage Spectra.
+  - title: "🧹 Reorganise homepage content structure"
+    body: |
+      **User Story**  
+      As a content strategist,  
+      I want to move in-depth descriptions like 'What is Spectra?' off the homepage,  
+      So that the homepage remains clean and minimal.
 
-          **Acceptance Criteria**
-          - New project form with fields
-          - Auto-ticket creation
-          - Status shown as “Pending Review”
-          - Email confirmation
-        labels: [request, project, client-action]
+      **Requirements**  
+      - Move 'What is Spectra?' section to the About Us page  
+      - Retain only headline and CTA on homepage
 
-  - epic: Subscription & Billing
-    stories:
-      - title: Show current plan and details
-        body: |
-          As a client, I want to view my plan and included features.
+      **Acceptance Criteria**  
+      - Homepage contains only short welcome + CTA  
+      - 'What is Spectra?' is now rendered on About Us page  
+      - No duplication of content across pages
 
-          **Acceptance Criteria**
-          - Plan name, tier, features
-          - Monthly/yearly billing
-          - Upgrade link
-        labels: [billing, subscription]
+    labels: ["web", "layout"]
+    epic: "🏠 Revamp homepage"
 
-      - title: View/download past invoices
-        body: |
-          As a client, I want to see all invoices and download PDFs.
+  - title: "📸 Add 'Trusted By' logos section"
+    body: |
+      **User Story**  
+      As a prospective customer,  
+      I want to see a 'Trusted By' section showing known clients,  
+      So that I can feel confident in Spectra's credibility.
 
-          **Acceptance Criteria**
-          - Show invoices by date, amount, status
-          - Download PDF
-          - Email invoices
-          - Link to payment if unpaid
-        labels: [billing, finance]
+      **Requirements**  
+      - New section below homepage CTA  
+      - Include placeholder logos (DXC, Lloyd’s, etc.)
+      - Logos should be grayscale or muted for style consistency
 
-  - epic: Client-Agent Collaboration
-    stories:
-      - title: View assigned Spectra agents
-        body: |
-          As a client, I want to know who’s managing my work.
+      **Acceptance Criteria**  
+      - Section renders correctly on all screen sizes  
+      - Logos are properly spaced and responsive  
+      - Section has a clean title (e.g. "Trusted by...")
 
-          **Acceptance Criteria**
-          - Agent name, bio, role
-          - Status indicator
-          - Activity summary
-        labels: [agents, UX]
+    labels: ["web", "branding", "content"]
+    epic: "🏠 Revamp homepage"
 
-      - title: Comment on project threads
-        body: |
-          As a client, I want to leave comments and updates on a project.
+  - title: "📚 Pull framework content from framework repo"
+    body: |
+      **User Story**  
+      As a site maintainer,  
+      I want the 'Framework' section of the site to automatically pull in the latest Markdown from the framework repo,  
+      So that content stays consistent and doesn’t need manual duplication.
 
-          **Acceptance Criteria**
-          - Comment thread with @mentions
-          - Threaded replies
-          - Email notifications
-        labels: [comment, UX, comms]
+      **Requirements**  
+      - Link to or embed markdown files from `framework` repo  
+      - Render only clean, formatted summaries — no raw Markdown  
+      - Add 'Read more' links back to GitHub if needed
 
-  - epic: Codex Activity Timeline
-    stories:
-      - title: View Codex project activity log
-        body: |
-          As a client, I want to see Codex actions on my project.
+      **Acceptance Criteria**  
+      - Framework page displays content pulled from repo  
+      - Updates in `framework` repo reflect on site  
+      - No broken links or raw code
 
-          **Acceptance Criteria**
-          - Timeline of commits, PRs, deployments
-          - Timestamped log grouped by day
-          - GitHub webhook integration
-        labels: [codex, audit, transparency]
+    labels: ["web", "docs", "integration"]
+    epic: "🏠 Revamp homepage"
 
-  - epic: Reporting & KPIs
-    stories:
-      - title: View project analytics and KPIs
-        body: |
-          As a client, I want to see visuals for project progress.
+  - title: "🚪 Remove extra buttons from footer"
+    body: |
+      **User Story**  
+      As a minimalist designer,  
+      I want to remove all unnecessary links from the footer,  
+      So that the site feels uncluttered and deliberate.
 
-          **Acceptance Criteria**
-          - Burndown, % complete, agent hours
-          - Power BI or Fabric embedded
-          - Export to PNG or PDF
-        labels: [reporting, analytics, PowerBI]
+      **Requirements**  
+      - Remove About / Privacy / Contact buttons from footer  
+      - Keep only a minimal copyright
+
+      **Acceptance Criteria**  
+      - Footer contains no visible navigation buttons  
+      - Legal or company info is styled subtly  
+      - Layout still responsive and accessible
+
+    labels: ["web", "frontend", "layout"]
+    epic: "🏠 Revamp homepage"
