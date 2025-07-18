@@ -370,9 +370,10 @@ const session = await getSession(Astro.request);
       // Handle active navigation state based on scroll position
       const navLinks = document.querySelectorAll('.nav-link');
       const sections = document.querySelectorAll('section[id]');
+      const HEADER_OFFSET = 100; // Offset for header
       
       function updateActiveNavigation() {
-        const scrollPosition = window.scrollY + 100; // Offset for header
+        const scrollPosition = window.scrollY + HEADER_OFFSET;
         
         sections.forEach(section => {
           const sectionTop = section.offsetTop;
