@@ -1,4 +1,4 @@
-import { g as getSession } from './chunks/server_D-48n0z3.mjs';
+import { g as getSession } from './chunks/server_CFKQCPYX.mjs';
 import { d as defineMiddleware, s as sequence } from './chunks/index_Dm3EoLKV.mjs';
 import 'es-module-lexer';
 import './chunks/astro-designed-error-pages_3fVzHS98.mjs';

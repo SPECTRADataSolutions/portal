@@ -1,7 +1,7 @@
 import { Auth } from '@auth/core';
 import { parseString } from 'set-cookie-parser';
-import Google from '@auth/core/providers/google';
 import Apple from '@auth/core/providers/apple';
+import Google from '@auth/core/providers/google';
 
 const defineConfig = (config) => {
   config.prefix ??= "/api/auth";
@@ -20,6 +20,8 @@ const authConfig = defineConfig({
       clientSecret: undefined                                   
     })
   ],
+  // 👇 Required by Auth.js — inject via environment variable
+  secret: process.env.AUTH_SECRET,
   callbacks: {
     signIn: async ({ user, account, profile }) => {
       console.log("Sign in attempt:", { user, account, profile });
@@ -30,7 +32,6 @@ const authConfig = defineConfig({
         provider: account?.provider,
         timestamp: (/* @__PURE__ */ new Date()).toISOString(),
         ip: "dev-environment"
-        // In production, get real IP
       };
       console.log("Audit Event:", auditEvent);
       return true;
@@ -66,12 +67,11 @@ const authConfig = defineConfig({
   session: {
     strategy: "jwt",
     maxAge: 30 * 60
-    // 30 minutes (short-lived tokens as required)
+    // 30 minutes
   },
   pages: {
     signIn: "/login",
     error: "/login"
-    // Redirect errors back to login page
   }
 });
 

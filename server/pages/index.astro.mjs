@@ -1,7 +1,7 @@
 /* empty css                                 */
 import { e as createComponent, f as createAstro, k as renderHead, l as renderScript, n as renderComponent, r as renderTemplate, h as addAttribute, o as Fragment } from '../chunks/astro/server_C7ncb0ib.mjs';
 import 'kleur/colors';
-import { g as getSession } from '../chunks/server_D-48n0z3.mjs';
+import { g as getSession } from '../chunks/server_CFKQCPYX.mjs';
 /* empty css                                 */
 export { renderers } from '../renderers.mjs';
 
