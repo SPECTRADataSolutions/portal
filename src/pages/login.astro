@@ -1,12 +1,5 @@
 ---
-import { getSession } from 'auth-astro/server';
-
-const session = await getSession(Astro.request);
-
-// Redirect to dashboard if already logged in
-if (session) {
-  return Astro.redirect('/dashboard');
-}
+// Static version - authentication not available on GitHub Pages
 ---
 
 <html lang="en">
@@ -18,6 +11,21 @@ if (session) {
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"
     />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body class="bg-spectra-smoke text-spectra-ink font-sans min-h-screen flex items-center justify-center">
+    <div class="max-w-md mx-auto text-center p-8 bg-white rounded-lg shadow-lg">
+      <h1 class="text-2xl font-bold text-spectra-blue mb-4">Authentication Unavailable</h1>
+      <p class="text-gray-600 mb-6">
+        User authentication is not available on the static version of this site.
+        Please contact us for access to protected features.
+      </p>
+      <a href="/" class="inline-block bg-spectra-blue text-white px-6 py-3 rounded hover:bg-blue-700 transition-colors">
+        Return to Home
+      </a>
+    </div>
+  </body>
+</html>
     <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
   <body class="bg-spectra-smoke text-spectra-ink font-sans">
