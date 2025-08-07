@@ -1,0 +1,88 @@
+---
+export const prerender = true;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | SPECTRA Data Solutions</title>
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body class="bg-spectra-smoke min-h-screen">
+    <header class="bg-spectra-blue text-white py-4 px-6">
+      <div class="max-w-5xl mx-auto flex justify-between items-center">
+        <div class="flex items-center">
+          <img
+            src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true"
+            alt="SPECTRA Logo"
+            class="h-8 mr-3"
+          />
+          <h1 class="text-xl font-bold" style="font-family: 'Poppins', sans-serif;">
+            SPECTRA
+          </h1>
+        </div>
+        <nav>
+          <ul class="flex space-x-6 items-center">
+            <li>
+              <a href="/" class="hover:text-spectra-gold transition-colors">
+                Home
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="py-20 px-6">
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-white rounded-lg shadow-md p-8 text-center">
+          <h2 class="text-3xl font-bold text-spectra-blue mb-6">
+            SPECTRA Dashboard
+          </h2>
+          
+          <div class="text-spectra-ink mb-8">
+            <p class="text-lg mb-4">
+              The interactive dashboard is not available on the static version of this site.
+            </p>
+            <p class="mb-4">
+              For access to real-time data pipelines, monitoring, and management features, please contact our team.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-spectra-smoke p-6 rounded-lg">
+              <h3 class="text-xl font-bold text-spectra-blue mb-3">Pipeline Management</h3>
+              <p class="text-sm text-spectra-ink">
+                Monitor and manage your data pipelines in real-time.
+              </p>
+            </div>
+            <div class="bg-spectra-smoke p-6 rounded-lg">
+              <h3 class="text-xl font-bold text-spectra-blue mb-3">Analytics & Insights</h3>
+              <p class="text-sm text-spectra-ink">
+                Access comprehensive analytics and data insights.
+              </p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <a
+              href="/contact"
+              class="inline-block px-6 py-3 bg-spectra-blue text-white rounded-lg hover:bg-spectra-orange transition"
+            >
+              Request Dashboard Access
+            </a>
+            <div>
+              <a
+                href="/"
+                class="inline-block px-6 py-3 border border-spectra-blue text-spectra-blue rounded-lg hover:bg-spectra-blue hover:text-white transition"
+              >
+                Back to Home
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
