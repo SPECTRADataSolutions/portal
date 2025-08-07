@@ -1,6 +1,8 @@
 ---
-import { getSession } from "auth-astro/server";
-const session = await getSession(Astro.request);
+// Temporary: Auth disabled for static generation
+// import { getSession } from "auth-astro/server";
+// const session = await getSession(Astro.request);
+const session = null;
 ---
 
 <head>
