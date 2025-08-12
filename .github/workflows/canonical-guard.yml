@@ -1,8 +1,9 @@
+name: Canonical Guard
+
 permissions:
   contents: read
   issues: write
   pull-requests: write
-name: Canonical Guard
 
 on:
   push:
@@ -12,4 +13,107 @@ on:
 
 jobs:
   canonical-guard:
-    uses: SPECTRADataSolutions/.github/.github/workflows/reusable-canonical-guard.yml@main
+    runs-on: ubuntu-latest
+    name: Validate Canonical Navigation Standards
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for C*O acronyms in pull request changes
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: files } = await github.rest.pulls.listFiles({
+              ...context.repo,
+              pull_number: context.payload.pull_request.number
+            });
+            
+            const bannedAcronyms = ['CFO', 'CTO', 'CIO', 'CMO', 'COO', 'CSO', 'CDO', 'CKO', 'CAO', 'COS', 'CEO'];
+            const violationsFound = [];
+            
+            for (const file of files) {
+              if (file.patch) {
+                const addedLines = file.patch.split('\n').filter(line => line.startsWith('+'));
+                for (const line of addedLines) {
+                  for (const acronym of bannedAcronyms) {
+                    if (line.includes(acronym)) {
+                      violationsFound.push({
+                        file: file.filename,
+                        acronym: acronym,
+                        line: line.trim()
+                      });
+                    }
+                  }
+                }
+              }
+            }
+            
+            if (violationsFound.length > 0) {
+              const violationDetails = violationsFound.map(v => 
+                `- **${v.file}**: Found \`${v.acronym}\` in: \`${v.line}\``
+              ).join('\n');
+              
+              const canonicalMapping = {
+                'CFO': 'Guidance',
+                'CTO': 'Innovation', 
+                'CMO': 'Engagement',
+                'COO': 'Operations',
+                'CSO': 'Protection',
+                'CDO': 'Sustenance',
+                'CEO': 'Growth',
+                'CIO': 'appropriate canonical archetype',
+                'CKO': 'appropriate canonical archetype',
+                'CAO': 'appropriate canonical archetype', 
+                'COS': 'appropriate canonical archetype'
+              };
+              
+              const mappingSuggestions = Object.entries(canonicalMapping)
+                .map(([legacy, canonical]) => `- ${legacy} → **${canonical}**`)
+                .join('\\n');
+              
+              const violationMessage = [
+                '❌ **Canonical Navigation Violation**',
+                '',
+                'This pull request introduces legacy C*O acronyms in the following locations:',
+                '',
+                violationDetails,
+                '',
+                '**Required Action:** Replace legacy acronyms with canonical archetype names:',
+                mappingSuggestions,
+                '',
+                'For detailed guidance, see [Canonical Organisational Structure](https://github.com/SPECTRADataSolutions/.github/blob/main/docs/canonicalOrganisationalStructure.md).',
+                '',
+                'If you need to document legacy aliases for historical context, add them to a `legacyAliases` section in your documentation rather than using them operationally.'
+              ].join('\\n');
+              
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: context.payload.pull_request.number,
+                body: violationMessage
+              });
+              
+              core.setFailed('Pull request contains banned C*O acronyms');
+            }
+
+      - name: Validate README navigation format
+        if: github.event_name == 'pull_request'
+        run: |
+          if [ -f README.md ]; then
+            if grep -q "<!-- NAVIGATION_START -->" README.md && grep -q "<!-- NAVIGATION_END -->" README.md; then
+              echo "✅ Navigation markers found"
+              exit 0
+            elif grep -q "Dream:" README.md && grep -q "Archetype:" README.md && grep -q "Domain:" README.md; then
+              echo "✅ Three-line format found"
+              exit 0
+            else
+              echo "❌ README.md missing required canonical navigation format"
+              exit 1
+            fi
+          else
+            echo "⚠️ README.md not found, skipping navigation check"
+            exit 0
+          fi
