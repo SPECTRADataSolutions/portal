@@ -1,5 +1,13 @@
 # SPECTRA Portal
 
+<!-- CANONICAL NAVIGATION START -->
+**Navigation**: [Dream](#) → [SPECTRA](#) | [Archetype](#) → [Engagement](#) | [Domain](#) → [experience](#) | [Repo](#) → [SPECTRADataSolutions/portal](#)
+
+**Quick Links**: [🏠 Home](https://github.com/SPECTRADataSolutions) | [📚 Docs](https://github.com/SPECTRADataSolutions/.github/blob/main/docs/canonicalOrganisationalStructure.md) | [🎯 Vision](./src/pages/vision.astro) | [📞 Contact](./src/pages/contact.astro)
+
+**Canonical Reference**: [Organizational Structure](https://github.com/SPECTRADataSolutions/.github/blob/main/docs/canonicalOrganisationalStructure.md)
+<!-- CANONICAL NAVIGATION END -->
+
 Official website for SPECTRA — Modular AI-powered data pipelines for Microsoft Fabric.
 
 ## Features

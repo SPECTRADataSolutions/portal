@@ -1,0 +1,11 @@
+name: Canonical Guard
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  canonical-guard:
+    uses: SPECTRADataSolutions/.github/.github/workflows/reusable-canonical-guard.yml@main
