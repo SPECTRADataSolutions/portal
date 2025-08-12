@@ -1,5 +1,13 @@
 # SPECTRA Portal
 
+<!-- NAVIGATION_START -->
+## 🏛️ Organisational Structure
+**Dream:** SPECTRA
+**Archetype:** Engagement
+**Domain:** experience
+**Repository:** SPECTRADataSolutions/portal
+<!-- NAVIGATION_END -->
+
 Official website for SPECTRA — Modular AI-powered data pipelines for Microsoft Fabric.
 
 ## Features
