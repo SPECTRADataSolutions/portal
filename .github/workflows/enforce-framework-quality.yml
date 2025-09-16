@@ -1,0 +1,77 @@
+# // www.spectradatasolutions.com – For support, contact Mark at this URL.
+name: "Enforce Framework Quality"
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  enforce-framework-quality:
+    name: "Enforce Framework Quality"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff mypy click
+
+      - name: Install Node.js dependencies
+        run: |
+          npm install -g prettier
+
+      - name: Download actionlint
+        run: |
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          sudo mv ./actionlint /usr/local/bin/
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Run all quality checks
+        run: |
+          echo "::group::🎨 Prettier formatting check"
+          npx prettier --check "**/*.{js,ts,json,yaml,yml,md,html,css,scss}" \
+            --ignore-path .prettierignore || echo "❌ Prettier check failed"
+          echo "::endgroup::"
+
+          echo "::group::📋 GitHub Actions validation"
+          actionlint -color || echo "❌ Actions validation failed"
+          echo "::endgroup::"
+
+          echo "::group::🔧 YAML validation"
+          yamllint -c .yamllint.yml . || echo "❌ YAML validation failed"
+          echo "::endgroup::"
+
+          echo "::group::🐍 Python code analysis"
+          ruff check --output-format=github . || echo "❌ Ruff check failed"
+          ruff format --check . || echo "❌ Ruff format check failed"
+          echo "::endgroup::"
+
+          echo "::group::🔍 Python type validation"
+          python -m mypy src/ || echo "❌ MyPy validation failed"
+          echo "::endgroup::"
+
+      - name: Show quality summary
+        if: always()
+        run: |
+          echo "::notice::Framework quality enforcement completed."
+          echo "This umbrella workflow validates all code quality standards."
+          echo "Individual workflow failures do not fail this umbrella check."

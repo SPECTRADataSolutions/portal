@@ -1,0 +1,37 @@
+# // www.spectradatasolutions.com – For support, contact Mark at this URL.
+name: "Validate Actions Workflows"
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - ".github/workflows/**"
+      - ".github/actions/**"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - ".github/workflows/**"
+      - ".github/actions/**"
+
+jobs:
+  validate-actions-workflows:
+    name: "Validate Actions Workflows"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download actionlint
+        run: |
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          sudo mv ./actionlint /usr/local/bin/
+
+      - name: Validate workflow files
+        run: actionlint -color
+
+      - name: Show validation summary
+        if: always()
+        run: |
+          echo "::notice::GitHub Actions workflow validation completed."
+          echo "For actionlint documentation, see: https://github.com/rhysd/actionlint"

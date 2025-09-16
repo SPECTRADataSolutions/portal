@@ -1,0 +1,81 @@
+name: Distribute Framework Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  OWNER: spectradatasolutions
+  VENDOR_PATHS: |
+    .github/workflows
+    .github/actions
+    scripts
+
+jobs:
+  distribute:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        repo: [execution, agents, portal, context, assistant, bridge]
+
+    steps:
+      - name: figure tag
+        id: meta
+        run: |
+          TAG="${{ github.event.release.tag_name || github.ref_name }}"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "branch=chore/vendor-framework-$TAG" >> $GITHUB_OUTPUT
+
+      - name: checkout framework at tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.meta.outputs.tag }}
+          fetch-depth: 0
+
+      - name: checkout ${{ env.OWNER }}/${{ matrix.repo }} (default branch)
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.OWNER }}/${{ matrix.repo }}
+          path: target
+          token: ${{ secrets.SPECTRA_GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: detect target default branch
+        id: base
+        run: |
+          BASE=$(git -C target symbolic-ref --short refs/remotes/origin/HEAD | sed 's@^origin/@@')
+          echo "base=${BASE:-main}" >> $GITHUB_OUTPUT
+
+      - name: sync selected paths into target working tree
+        run: |
+          while read -r p; do
+            [ -z "$p" ] && continue
+            mkdir -p "target/$p"
+            rsync -a --delete "$p"/ "target/$p"/
+          done <<< "${{ env.VENDOR_PATHS }}"
+
+      - name: open pr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.SPECTRA_GITHUB_TOKEN }}
+          path: target
+          base: ${{ steps.base.outputs.base }}
+          branch: ${{ steps.meta.outputs.branch }}   # action creates/updates this branch
+          commit-message: "chore: vendor framework ${{ steps.meta.outputs.tag }}"
+          title: "chore: vendor framework ${{ steps.meta.outputs.tag }}"
+          body: |
+            Automated sync from **framework** release `${{ steps.meta.outputs.tag }}`.
+
+            Included paths:
+            ${{ env.VENDOR_PATHS }}
+          labels: |
+            automation
+            framework-sync
+          delete-branch: true
+          branch-suffix: timestamp

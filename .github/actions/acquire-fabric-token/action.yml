@@ -1,0 +1,26 @@
+name: Acquire Fabric Token
+description: Install jq and export FABRIC_TOKEN from Spectra Fabric secrets
+runs:
+  using: "composite"
+  steps:
+    - name: Install jq
+      shell: bash
+      run: |
+        sudo apt-get update -y >/dev/null
+        sudo apt-get install -y jq >/dev/null
+    - name: Acquire token
+      shell: bash
+      env:
+        TENANT: ${{ env.TENANT }}
+        CID: ${{ env.CID }}
+        CSEC: ${{ env.CSEC }}
+      run: |
+        token=$(curl -s -X POST \
+          -H "Content-Type: application/x-www-form-urlencoded" \
+          -d "grant_type=client_credentials" \
+          -d "client_id=$CID" \
+          -d "client_secret=$CSEC" \
+          -d "scope=https://analysis.windows.net/powerbi/api/.default" \
+          "https://login.microsoftonline.com/$TENANT/oauth2/v2.0/token" | jq -r .access_token)
+        [ -n "$token" ] && [ "$token" != "null" ] || { echo "::error::Token acquisition failed"; exit 1; }
+        echo "FABRIC_TOKEN=$token" >> $GITHUB_ENV

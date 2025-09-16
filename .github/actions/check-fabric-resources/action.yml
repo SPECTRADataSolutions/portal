@@ -1,0 +1,177 @@
+# www.spectradatasolutions.com – For support, contact Mark at this URL.
+name: "Check Fabirc Resources"
+description: "Logs into Fabric, resolves/validates resource IDs, and writes a Markdown job summary."
+author: "SPECTRA Data Solutions"
+
+inputs:
+  tenantId:
+    description: "Entra tenant ID (GUID)"
+    required: true
+  clientId:
+    description: "App registration client ID"
+    required: true
+  clientSecret:
+    description: "Client secret"
+    required: true
+  workspaceId:
+    description: "Fabric workspace ID (GUID)"
+    required: true
+  lakehouseId:
+    description: "Lakehouse ID or name (optional but recommended)"
+    required: false
+    default: ""
+  pipelineId:
+    description: "Data Pipeline ID or name (optional but recommended)"
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: Echo inputs (redacted where needed)
+      shell: bash
+      run: |
+        echo "::group::Inputs"
+        echo "tenantId      : ***"
+        echo "clientId      : ***"
+        echo "workspaceId   : ${INPUT_WORKSPACE_ID}"
+        echo "lakehouseId   : ${INPUT_LAKEHOUSE_ID}"
+        echo "pipelineId    : ${INPUT_PIPELINE_ID}"
+        echo "::endgroup::"
+      env:
+        INPUT_WORKSPACE_ID: ${{ inputs.workspaceId }}
+        INPUT_LAKEHOUSE_ID: ${{ inputs.lakehouseId }}
+        INPUT_PIPELINE_ID: ${{ inputs.pipelineId }}
+
+    - name: Install Fabric CLI
+      shell: bash
+      run: |
+        npm i -g ms-fabric-cli
+        fabric --version
+
+    - name: Authenticate to Fabric (client credentials)
+      shell: bash
+      run: |
+        set -euo pipefail
+        fabric auth client \
+          --tenant-id "${TENANT_ID}" \
+          --client-id "${CLIENT_ID}" \
+          --client-secret "${CLIENT_SECRET}"
+      env:
+        TENANT_ID: ${{ inputs.tenantId }}
+        CLIENT_ID: ${{ inputs.clientId }}
+        CLIENT_SECRET: ${{ inputs.clientSecret }}
+
+    - name: Fetch workspace items (JSON)
+      id: fetch
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        # Helpers
+        is_guid() { [[ "$1" =~ ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$ ]]; }
+
+        # Pull all items from the workspace
+        fabric workspace items list \
+          --workspace-id "${WORKSPACE_ID}" \
+          --output json > items.json
+
+        echo "::group::Workspace items (raw JSON)"
+        cat items.json
+        echo "::endgroup::"
+
+        # Extract minimal catalogue (id, name, type)
+        jq -r '.items[] | {id,name,type} | @json' items.json > items_min.json
+
+        # Resolve Lakehouse
+        LAKEHOUSE_INPUT="${LAKEHOUSE}"
+        if [[ -n "${LAKEHOUSE_INPUT}" ]]; then
+          if is_guid "${LAKEHOUSE_INPUT}"; then
+            LAKEHOUSE_ID="${LAKEHOUSE_INPUT}"
+            LAKEHOUSE_NAME=$(jq -r --arg id "$LAKEHOUSE_ID" 'select(.id==$id and (.type|ascii_downcase)=="lakehouse") | .name' items_min.json || true)
+          else
+            LAKEHOUSE_NAME="${LAKEHOUSE_INPUT}"
+            LAKEHOUSE_ID=$(jq -r --arg n "$LAKEHOUSE_NAME" 'select((.name==$n) and (.type|ascii_downcase)=="lakehouse") | .id' items_min.json | head -n1)
+          fi
+          if [[ -z "${LAKEHOUSE_ID:-}" ]]; then
+            echo "::error title=Lakehouse not found::Provided value '${LAKEHOUSE_INPUT}' does not match any Lakehouse in this workspace."
+            exit 1
+          fi
+        else
+          LAKEHOUSE_ID=""
+          LAKEHOUSE_NAME=""
+        fi
+
+        # Resolve Pipeline
+        PIPELINE_INPUT="${PIPELINE}"
+        if [[ -n "${PIPELINE_INPUT}" ]]; then
+          if is_guid "${PIPELINE_INPUT}"; then
+            PIPELINE_ID="${PIPELINE_INPUT}"
+            PIPELINE_NAME=$(jq -r --arg id "$PIPELINE_ID" 'select(.id==$id and (.type|ascii_downcase)=="datapipeline") | .name' items_min.json || true)
+          else
+            PIPELINE_NAME="${PIPELINE_INPUT}"
+            PIPELINE_ID=$(jq -r --arg n "$PIPELINE_NAME" 'select((.name==$n) and (.type|ascii_downcase)=="datapipeline") | .id' items_min.json | head -n1)
+          fi
+          if [[ -z "${PIPELINE_ID:-}" ]]; then
+            echo "::error title=DataPipeline not found::Provided value '${PIPELINE_INPUT}' does not match any DataPipeline in this workspace."
+            exit 1
+          fi
+        else
+          PIPELINE_ID=""
+          PIPELINE_NAME=""
+        fi
+
+        # Export for downstream and summary
+        {
+          echo "LAKEHOUSE_ID=${LAKEHOUSE_ID}"
+          echo "LAKEHOUSE_NAME=${LAKEHOUSE_NAME}"
+          echo "PIPELINE_ID=${PIPELINE_ID}"
+          echo "PIPELINE_NAME=${PIPELINE_NAME}"
+        } >> "$GITHUB_ENV"
+
+      env:
+        WORKSPACE_ID: ${{ inputs.workspaceId }}
+        LAKEHOUSE: ${{ inputs.lakehouseId }}
+        PIPELINE: ${{ inputs.pipelineId }}
+
+    - name: Validate IDs exist in workspace
+      shell: bash
+      run: |
+        set -euo pipefail
+        ERR=0
+
+        if [[ -n "${LAKEHOUSE_ID}" ]]; then
+          HITS=$(jq -r --arg id "$LAKEHOUSE_ID" 'select(.id==$id and (.type|ascii_downcase)=="lakehouse") | .id' items_min.json | wc -l | tr -d ' ')
+          [[ "$HITS" == "1" ]] || { echo "::error title=Lakehouse validation failed::ID ${LAKEHOUSE_ID} not present in workspace."; ERR=1; }
+        fi
+
+        if [[ -n "${PIPELINE_ID}" ]]; then
+          HITS=$(jq -r --arg id "$PIPELINE_ID" 'select(.id==$id and (.type|ascii_downcase)=="datapipeline") | .id' items_min.json | wc -l | tr -d ' ')
+          [[ "$HITS" == "1" ]] || { echo "::error title=Pipeline validation failed::ID ${PIPELINE_ID} not present in workspace."; ERR=1; }
+        fi
+
+        exit $ERR
+
+    - name: Write Markdown job summary
+      shell: bash
+      run: |
+        {
+          echo "## Fabric Items"
+          echo ""
+          echo "**Workspace:** \`${WORKSPACE_ID}\`"
+          echo ""
+          echo "| Kind | Name | ID |"
+          echo "|---|---|---|"
+          # Lakehouse row (optional)
+          if [[ -n "${LAKEHOUSE_ID}" ]]; then
+            echo "| Lakehouse | ${LAKEHOUSE_NAME:-(resolved)} | \`${LAKEHOUSE_ID}\` |"
+          fi
+          # Pipeline row (optional)
+          if [[ -n "${PIPELINE_ID}" ]]; then
+            echo "| DataPipeline | ${PIPELINE_NAME:-(resolved)} | \`${PIPELINE_ID}\` |"
+          fi
+          echo ""
+          echo "<sub>Generated by SPECTRA framework · $(date -u +'%Y-%m-%d %H:%M:%SZ')</sub>"
+        } >> "$GITHUB_STEP_SUMMARY"
+      env:
+        WORKSPACE_ID: ${{ inputs.workspaceId }}

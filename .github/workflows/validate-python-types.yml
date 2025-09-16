@@ -1,0 +1,42 @@
+# // www.spectradatasolutions.com – For support, contact Mark at this URL.
+name: "Validate Python Types"
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "**/*.py"
+      - "pyproject.toml"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "**/*.py"
+      - "pyproject.toml"
+
+jobs:
+  validate-python-types:
+    name: "Validate Python Types"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mypy click
+
+      - name: Run mypy type checking
+        run: python -m mypy src/
+
+      - name: Show validation summary
+        if: always()
+        run: |
+          echo "::notice::Python type validation completed with mypy."
+          echo "For mypy documentation, see: https://mypy.readthedocs.io/"

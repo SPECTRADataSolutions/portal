@@ -1,0 +1,36 @@
+# // www.spectradatasolutions.com – For support, contact Mark at this URL.
+name: "Enforce Prettier Formatting"
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  enforce-prettier-formatting:
+    name: "Enforce Prettier Formatting"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install Prettier
+        run: npx prettier --version
+
+      - name: Check Prettier formatting
+        run: |
+          npx prettier --check "**/*.{js,ts,json,yaml,yml,md,html,css,scss}" \
+            --ignore-path .prettierignore
+
+      - name: Show formatting differences
+        if: failure()
+        run: |
+          echo "::error::Files are not properly formatted. Run 'npx prettier --write .' to fix formatting issues."

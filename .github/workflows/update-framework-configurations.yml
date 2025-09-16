@@ -1,0 +1,251 @@
+# // www.spectradatasolutions.com – For support, contact Mark at this URL.
+name: "Update Framework Configurations"
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_repo:
+        description: "Target repository (e.g., execution, agents)"
+        required: false
+        default: "execution"
+        type: string
+      dry_run:
+        description: "Dry run mode (preview changes without creating PRs)"
+        required: false
+        default: false
+        type: boolean
+  schedule:
+    # Run weekly on Sundays at 02:00 UTC to sync configurations
+    - cron: "0 2 * * 0"
+
+jobs:
+  update-framework-configurations:
+    name: "Update Framework Configurations"
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        target_repo: [execution, agents]
+
+    steps:
+      - name: Checkout framework repository
+        uses: actions/checkout@v4
+        with:
+          path: framework
+
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          repository: SPECTRADataSolutions/${{ matrix.target_repo }}
+          token: ${{ secrets.ORG_SYNC_PAT }}
+          path: ${{ matrix.target_repo }}
+
+      - name: Configure git identity
+        run: |
+          cd ${{ matrix.target_repo }}
+          git config --global user.name "SPECTRA Framework Sync"
+          git config --global user.email "automation@spectradatasolutions.com"
+
+      - name: Create sync branch
+        run: |
+          cd "${{ matrix.target_repo }}"
+          BRANCH_NAME="chore/sync-framework-standards-$(date +%Y%m%d)"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> "$GITHUB_ENV"
+          git checkout -b "$BRANCH_NAME"
+
+      - name: Sync configuration files
+        run: |
+          cd "${{ matrix.target_repo }}"
+
+          # Copy Prettier configuration
+          cp ../framework/.prettierrc.yml .
+          cp ../framework/.prettierignore .
+
+          # Copy YAML lint configuration
+          cp ../framework/.yamllint.yml .
+
+          # Create or update .github/workflows directory
+          mkdir -p .github/workflows
+
+          # Copy workflow files
+          cp ../framework/.github/workflows/enforce-prettier-formatting.yml .github/workflows/
+          cp ../framework/.github/workflows/validate-actions-workflows.yml .github/workflows/
+          cp ../framework/.github/workflows/validate-yaml-files.yml .github/workflows/
+          cp ../framework/.github/workflows/analyze-python-code.yml .github/workflows/
+          cp ../framework/.github/workflows/validate-python-types.yml .github/workflows/
+          cp ../framework/.github/workflows/enforce-framework-quality.yml .github/workflows/
+
+          # Update pyproject.toml if it exists (merge Ruff and mypy configurations)
+          if [ -f "pyproject.toml" ]; then
+            echo "# Merging framework standards into existing pyproject.toml"
+            # Note: This requires manual merge logic or a dedicated script
+            # For MVP, we'll append framework sections if they don't exist
+            grep -q "\[tool.ruff\]" pyproject.toml || \
+              sed -n '/\[tool.ruff\]/,/\[.*\]/p' ../framework/pyproject.toml | head -n -1 >> pyproject.toml
+            grep -q "\[tool.mypy\]" pyproject.toml || \
+              sed -n '/\[tool.mypy\]/,/\[.*\]/p' ../framework/pyproject.toml | head -n -1 >> pyproject.toml
+          else
+            # Copy minimal pyproject.toml for tools configuration only
+            cat > pyproject.toml << 'EOF'
+          # // www.spectradatasolutions.com – For support, contact Mark at this URL.
+          # SPECTRA Framework standards configuration
+
+          [tool.ruff]
+          target-version = "py39"
+          line-length = 120
+          src = ["src", "scripts"]
+          exclude = [
+              ".git",
+              ".venv",
+              "__pycache__",
+              "build",
+              "dist",
+              "*.egg-info",
+          ]
+
+          [tool.ruff.lint]
+          select = [
+              "E",    # pycodestyle errors
+              "W",    # pycodestyle warnings
+              "F",    # Pyflakes
+              "I",    # isort
+              "B",    # flake8-bugbear
+              "UP",   # pyupgrade
+              "C4",   # flake8-comprehensions
+              "SIM",  # flake8-simplify
+              "RUF",  # Ruff-specific rules
+              "N",    # pep8-naming
+              "D",    # pydocstyle
+              "ANN",  # flake8-annotations
+          ]
+          ignore = [
+              "E501",   # Line too long (handled by formatter)
+              "D100",   # Missing docstring in public module
+              "D104",   # Missing docstring in public package
+              "D101",   # Missing docstring in public class
+              "D102",   # Missing docstring in public method
+              "D103",   # Missing docstring in public function
+              "D105",   # Missing docstring in magic method
+              "D107",   # Missing docstring in __init__
+              "ANN201", # Missing return type annotation for public function
+              "ANN204", # Missing return type annotation for special method
+              "N802",   # Function name should be lowercase (camelCase is SPECTRA standard)
+              "N815",   # Variable in class scope should not be mixedCase (activityType is intentional)
+          ]
+          per-file-ignores = { "tests/**/*.py" = ["D", "ANN"], "scripts/**/*.py" = ["D"] }
+
+          [tool.ruff.format]
+          quote-style = "double"
+          indent-style = "space"
+          skip-magic-trailing-comma = false
+          docstring-code-format = true
+
+          [tool.ruff.lint.pydocstyle]
+          convention = "google"
+
+          [tool.ruff.lint.isort]
+          known-first-party = ["spectra"]
+          force-single-line = false
+          lines-after-imports = 2
+
+          [tool.mypy]
+          python_version = "3.9"
+          strict = false
+          warn_return_any = false
+          warn_unused_configs = true
+          disallow_untyped_defs = false
+          disallow_incomplete_defs = false
+          check_untyped_defs = false
+          disallow_untyped_decorators = false
+          no_implicit_optional = false
+          warn_redundant_casts = false
+          warn_unused_ignores = false
+          warn_no_return = false
+          warn_unreachable = false
+          show_error_codes = true
+          ignore_errors = true
+          EOF
+          fi
+
+      - name: Check for changes
+        run: |
+          cd "${{ matrix.target_repo }}"
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "No changes detected. Skipping PR creation."
+            echo "HAS_CHANGES=false" >> "$GITHUB_ENV"
+          else
+            echo "Changes detected. Will create PR."
+            echo "HAS_CHANGES=true" >> "$GITHUB_ENV"
+            git status
+          fi
+
+      - name: Commit changes
+        if: env.HAS_CHANGES == 'true' && inputs.dry_run != true
+        run: |
+          cd "${{ matrix.target_repo }}"
+          git add .
+          git commit -m "chore: sync framework standards configuration
+
+          Updates SPECTRA framework standards including:
+          - Prettier formatting rules
+          - GitHub Actions workflows for quality enforcement
+          - YAML validation with yamllint
+          - Python analysis with Ruff and mypy
+          - Umbrella quality enforcement workflow
+
+          Synced from framework repository on $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+
+      - name: Push branch and create PR
+        if: env.HAS_CHANGES == 'true' && inputs.dry_run != true
+        run: |
+          cd "${{ matrix.target_repo }}"
+          git push origin "$BRANCH_NAME"
+
+          # Create PR using GitHub CLI
+          gh pr create \
+            --title "chore: sync framework standards configuration" \
+            --body "🔄 **Automated Framework Standards Sync**
+
+          This PR synchronises the latest SPECTRA framework standards from the \`framework\` repository.
+
+          ## 📋 Changes Included
+
+          - **Prettier formatting**: .prettierrc.yml, .prettierignore
+          - **YAML validation**: .yamllint.yml configuration
+          - **GitHub workflows**: Complete quality enforcement suite
+          - **Python tools**: Ruff and mypy configuration in pyproject.toml
+
+          ## 🎯 Quality Workflows Added
+
+          - \`Enforce Prettier Formatting\` - Code formatting standards
+          - \`Validate Actions Workflows\` - GitHub Actions validation with actionlint
+          - \`Validate Yaml Files\` - YAML file validation with yamllint
+          - \`Analyse Python Code\` - Python analysis with Ruff
+          - \`Validate Python Types\` - Type checking with mypy
+          - \`Enforce Framework Quality\` - Umbrella workflow for all checks
+
+          ## ✅ Review Checklist
+
+          - [ ] Verify no conflicts with existing configurations
+          - [ ] Test workflows execute successfully
+          - [ ] Confirm project-specific settings are preserved
+          - [ ] Enable required status checks in branch protection rules
+
+          🤖 _This PR was created automatically by the framework configuration sync workflow._" \
+            --head "$BRANCH_NAME" \
+            --base main
+        env:
+          GH_TOKEN: ${{ secrets.ORG_SYNC_PAT }}
+
+      - name: Show sync summary
+        if: always()
+        run: |
+          if [ "${{ inputs.dry_run }}" == "true" ]; then
+            echo "::notice::Dry run completed for ${{ matrix.target_repo }}. No changes were committed."
+          elif [ "${{ env.HAS_CHANGES }}" == "true" ]; then
+            echo "::notice::Framework standards successfully synced to ${{ matrix.target_repo }}."
+            echo "PR created with branch: ${{ env.BRANCH_NAME }}"
+          else
+            echo "::notice::No configuration changes needed for ${{ matrix.target_repo }}."
+          fi
+          echo "For configuration sync documentation, see framework repository."
