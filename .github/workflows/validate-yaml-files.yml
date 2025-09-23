@@ -1,5 +1,7 @@
 # // www.spectradatasolutions.com – For support, contact Mark at this URL.
 name: "Validate Yaml Files"
+permissions:
+  contents: read
 
 on:
   push:
