@@ -1,5 +1,7 @@
 # // www.spectradatasolutions.com – For support, contact Mark at this URL.
 name: "Analyse Python Code"
+permissions:
+  contents: read
 
 on:
   push:
