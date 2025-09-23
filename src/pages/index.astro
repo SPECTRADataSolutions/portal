@@ -3,85 +3,93 @@
 export const prerender = true;
 ---
 
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SPECTRA | Modular AI-Powered Pipelines</title>
+  <title>SPECTRA | Modular AI-Powered Data Pipelines</title>
   <link
     rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
   />
   <link rel="stylesheet" href="/src/styles/global.css" />
   <style>
+    * {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    
     html {
       scroll-behavior: smooth;
     }
+    
     .nav-link {
       position: relative;
-      transition: color 0.3s ease;
+      transition: all 0.2s ease;
+      font-weight: 500;
+      font-size: 14px;
     }
-    .nav-link.active {
-      color: var(--spectra-gold);
+    
+    .nav-link:hover {
+      color: #0969da;
     }
-    .nav-link.active::after {
-      content: "";
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background-color: var(--spectra-gold);
-      border-radius: 1px;
+    
+    .btn-primary {
+      background-color: #1a7f37;
+      border: 1px solid #1a7f37;
+      color: white;
+      transition: all 0.2s ease;
+    }
+    
+    .btn-primary:hover {
+      background-color: #2da44e;
+      border-color: #2da44e;
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      border: 1px solid #d0d7de;
+      color: #24292f;
+      transition: all 0.2s ease;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #f6f8fa;
+      border-color: #d0d7de;
     }
   </style>
 </head>
 
-<header class="bg-spectra-blue text-white py-4 px-6">
-  <div class="max-w-5xl mx-auto flex justify-between items-center">
-    <div class="flex items-center">
+<body class="bg-white text-spectra-ink min-h-screen">
+
+<!-- Header -->
+<header class="bg-white border-b border-spectra-sky py-4 px-6 sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto flex justify-between items-center">
+    <div class="flex items-center space-x-3">
       <img
         src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true"
         alt="SPECTRA Logo"
-        class="h-8 mr-3"
+        class="h-8 w-8"
       />
-      <h1 class="text-xl font-bold" style="font-family: 'Poppins', sans-serif;">
+      <h1 class="text-xl font-semibold text-spectra-ink">
         SPECTRA
       </h1>
     </div>
     <nav>
-      <ul class="flex space-x-6 items-center">
+      <ul class="flex items-center space-x-8">
         <li>
-          <a
-            href="#about"
-            class="nav-link hover:text-spectra-gold transition-colors"
-            >About Us</a
-          >
+          <a href="/vision" class="nav-link text-spectra-ink">
+            Vision
+          </a>
         </li>
         <li>
-          <a
-            href="#what-we-do"
-            class="nav-link hover:text-spectra-gold transition-colors"
-            >What We Do</a
-          >
-        </li>
-        <li>
-          <a
-            href="#framework"
-            class="nav-link hover:text-spectra-gold transition-colors"
-            >Framework</a
-          >
-        </li>
-        <li>
-          <a
-            href="#contact"
-            class="nav-link hover:text-spectra-gold transition-colors"
-            >Contact</a
-          >
+          <a href="/contact" class="nav-link text-spectra-ink">
+            Contact
+          </a>
         </li>
         <li>
           <a
             href="/login"
-            class="px-3 py-1 bg-spectra-orange hover:bg-spectra-gold text-spectra-ink rounded text-sm font-medium transition-colors"
+            class="btn-primary px-4 py-2 rounded-md text-sm font-medium"
           >
             Sign In
           </a>
@@ -91,213 +99,85 @@ export const prerender = true;
   </div>
 </header>
 
-<!-- Main Content Blocks -->
+<!-- Main Content -->
 <main>
   <!-- Hero Section -->
-  <section class="bg-spectra-dark text-spectra-cloud py-20 px-6 text-center">
-    <img
-      src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true"
-      alt="SPECTRA Logo"
-      class="mx-auto mb-4 h-20"
-    />
-    <h1
-      class="text-6xl font-bold tracking-tight"
-      style="font-family: 'Poppins', sans-serif;"
-    >
-      SPECTRA
-    </h1>
-    <p class="text-xl mt-4">
-      Modular AI-powered data pipelines for Microsoft Fabric
-    </p>
+  <section class="py-24 px-6 text-center">
+    <div class="max-w-4xl mx-auto">
+      <div class="mb-8">
+        <img
+          src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true"
+          alt="SPECTRA Logo"
+          class="mx-auto mb-6 h-16 w-16"
+        />
+        <h1 class="text-5xl font-semibold text-spectra-ink mb-4 tracking-tight">
+          SPECTRA
+        </h1>
+        <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+          Modular AI-powered data pipelines for Microsoft Fabric. 
+          Democratizing enterprise-grade data capabilities for organizations of every size.
+        </p>
+      </div>
+      
+      <div class="flex justify-center space-x-4">
+        <a
+          href="/vision"
+          class="btn-primary px-6 py-3 rounded-md font-medium text-sm"
+        >
+          Learn About Our Vision
+        </a>
+        <a
+          href="/contact"
+          class="btn-secondary px-6 py-3 rounded-md font-medium text-sm"
+        >
+          Get in Touch
+        </a>
+      </div>
+    </div>
   </section>
 
-  <!-- About SPECTRA -->
-  <section id="about" class="py-20 px-6 bg-spectra-smoke">
+  <!-- Simple Value Proposition -->
+  <section class="py-16 px-6 bg-spectra-sky bg-opacity-30">
     <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl font-bold text-spectra-blue mb-6">About SPECTRA</h2>
-      <div class="text-lg text-spectra-ink leading-relaxed space-y-4">
-        <p>
-          SPECTRA Data Solutions is pioneering the future of data automation
-          through our modular AI-powered pipeline platform. We're on a mission
-          to democratize enterprise-grade data capabilities, making
-          sophisticated data processing accessible to organizations of every
-          size.
-        </p>
-        <p>
-          Our goal is to eliminate the complexity and cost barriers that have
-          traditionally prevented businesses from harnessing the full potential
-          of their data. By providing intelligent, automated data pipelines that
-          integrate seamlessly with Microsoft Fabric, we're empowering
-          organizations to focus on insights rather than infrastructure.
-        </p>
-        <p>
-          <strong>For small businesses:</strong> We offer affordable, plug-and-play
-          solutions that provide enterprise-level data capabilities without the enterprise-level
-          complexity or cost. Get started quickly with pre-built connectors and automated
-          workflows that scale with your growth.
-        </p>
-        <p>
-          <strong>For large enterprises:</strong> We deliver comprehensive, scalable
-          data architecture that handles complex multi-source integrations, advanced
-          governance requirements, and enterprise-grade security while reducing operational
-          overhead and time-to-insight.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Trusted By -->
-  <section class="bg-spectra-cloud py-10 px-6 text-center">
-    <p class="uppercase text-sm tracking-wide text-spectra-blue mb-4">
-      Trusted by
-    </p>
-    <div class="flex justify-center gap-12 grayscale opacity-80">
-      <img src="/logos/dxc.svg" alt="DXC" class="h-10" />
-      <img src="/logos/velonetic.svg" alt="Velonetic" class="h-10" />
-      <img src="/logos/lloyds.svg" alt="Lloyds of London" class="h-10" />
-    </div>
-  </section>
-
-  <!-- What We Do -->
-  <section id="what-we-do" class="py-20 px-6 bg-spectra-cloud">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl font-bold text-spectra-blue mb-4">What We Do</h2>
-      <p class="text-lg text-spectra-ink mb-8">
-        The SPECTRA Engine is designed to automate every stage of your data
-        lifecycle.
-      </p>
-      <div class="flex flex-wrap justify-center gap-4 text-left">
-        <!-- ... all your stage cards ... -->
-        <!-- Unchanged from your input -->
-        <div class="bg-white p-2 rounded shadow w-40">
-          <h3 class="font-bold text-spectra-blue text-sm">Source</h3>
-          <p class="text-xs mt-1">
-            Secure connection to any API, app or source system.
-          </p>
-        </div>
-        <!-- etc ... -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Framework -->
-  <section id="framework" class="py-20 px-6 bg-spectra-smoke">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl font-bold text-spectra-blue mb-4">Framework</h2>
-      <p class="text-lg text-spectra-ink mb-8">
-        Our modular framework provides the foundation for scalable data
-        solutions.
-      </p>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
-        <!-- ... all your framework cards ... -->
-        <!-- Unchanged from your input -->
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <h3 class="font-bold text-spectra-blue text-lg mb-3">
-            Modular Architecture
-          </h3>
-          <p class="text-sm text-spectra-ink">
-            Built with microservices architecture enabling flexible deployment
-            and scaling of individual components.
-          </p>
-        </div>
-        <!-- etc ... -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Explore More -->
-  <section class="py-20 px-6 text-center">
-    <h2 class="text-3xl font-bold text-spectra-blue mb-4">Explore More</h2>
-    <div class="flex justify-center gap-6">
-      <a
-        href="/vision"
-        class="px-6 py-3 bg-spectra-blue text-white rounded-lg shadow-md hover:bg-spectra-orange transition"
-        >Our Vision</a
-      >
-      <a
-        href="/strategic-plan"
-        class="px-6 py-3 bg-spectra-blue text-white rounded-lg shadow-md hover:bg-spectra-orange transition"
-        >Strategic Plan</a
-      >
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="py-20 px-6 bg-spectra-cloud">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl font-bold text-spectra-blue mb-6">Contact Us</h2>
-      <p class="text-lg text-spectra-ink mb-8">
-        Ready to transform your data infrastructure? Get in touch with our team.
-      </p>
+      <h2 class="text-2xl font-medium text-spectra-ink mb-6">
+        Simplifying Data Automation
+      </h2>
       <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white p-8 rounded-lg shadow-md">
-          <h3 class="text-xl font-bold text-spectra-blue mb-4">Get Started</h3>
-          <p class="text-spectra-ink mb-4">
-            Schedule a consultation to discuss your data needs and explore how
-            SPECTRA can help.
+        <div class="p-6">
+          <h3 class="font-medium text-spectra-ink mb-3">For Growing Businesses</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            Affordable, plug-and-play solutions that scale with your growth. 
+            No enterprise complexity, just results.
           </p>
-          <a
-            href="/contact"
-            class="inline-block px-6 py-3 bg-spectra-blue text-white rounded-lg shadow-md hover:bg-spectra-orange transition"
-          >
-            Contact Form
-          </a>
         </div>
-        <div class="bg-white p-8 rounded-lg shadow-md">
-          <h3 class="text-xl font-bold text-spectra-blue mb-4">Learn More</h3>
-          <p class="text-spectra-ink mb-4">
-            Explore our comprehensive documentation and resources to understand
-            our solutions.
+        <div class="p-6">
+          <h3 class="font-medium text-spectra-ink mb-3">For Large Enterprises</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            Comprehensive, scalable architecture with advanced governance 
+            and enterprise-grade security.
           </p>
-          <a
-            href="/vision"
-            class="inline-block px-6 py-3 bg-spectra-blue text-white rounded-lg shadow-md hover:bg-spectra-orange transition"
-          >
-            Our Vision
-          </a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CTA Footer -->
-  <section class="bg-spectra-blue text-white py-12 px-6 text-center">
-    <h2 class="text-2xl font-semibold mb-4">
-      Ready to see the SPECTRA effect?
-    </h2>
-        <a
-          href="/login"
-          class="inline-block px-6 py-3 bg-spectra-gold hover:bg-spectra-orange text-spectra-ink rounded-lg shadow-md transition"
-        >
-          Sign In to Get Started
-        </a>
+  <section class="py-16 px-6 text-center">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-2xl font-medium text-spectra-ink mb-4">
+        Ready to Transform Your Data Infrastructure?
+      </h2>
+      <p class="text-gray-600 mb-8">
+        Start your journey with SPECTRA's modular data pipeline platform.
+      </p>
+      <a
+        href="/login"
+        class="btn-primary px-8 py-3 rounded-md font-medium"
+      >
+        Get Started
+      </a>
+    </div>
   </section>
 </main>
-
-<script>
-  // Handle active navigation state based on scroll position
-  const navLinks = document.querySelectorAll(".nav-link");
-  const sections = document.querySelectorAll("section[id]");
-  const HEADER_OFFSET = 100;
-  function updateActiveNavigation() {
-    const scrollPosition = window.scrollY + HEADER_OFFSET;
-    sections.forEach((section) => {
-      const sectionTop = (section as HTMLElement).offsetTop;
-      const sectionHeight = (section as HTMLElement).offsetHeight;
-      const sectionId = section.getAttribute("id");
-      if (
-        scrollPosition >= sectionTop &&
-        scrollPosition < sectionTop + sectionHeight
-      ) {
-        navLinks.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("href") === `#${sectionId}`) {
-            link.classList.add("active");
-          }
-        });
-      }
-    });
-  }
-  window.addEventListener("scroll", updateActiveNavigation);
-  updateActiveNavigation();
-</script>
+</body>
+</html>

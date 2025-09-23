@@ -7,25 +7,59 @@ export const prerender = true;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign In | SPECTRA Data Solutions</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+    />
     <link rel="stylesheet" href="/src/styles/global.css" />
+    <style>
+      * {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+      
+      .btn-primary {
+        background-color: #1a7f37;
+        border: 1px solid #1a7f37;
+        color: white;
+        transition: all 0.2s ease;
+      }
+      
+      .btn-primary:hover {
+        background-color: #2da44e;
+        border-color: #2da44e;
+      }
+      
+      .btn-secondary {
+        background-color: transparent;
+        border: 1px solid #d0d7de;
+        color: #24292f;
+        transition: all 0.2s ease;
+      }
+      
+      .btn-secondary:hover {
+        background-color: #f6f8fa;
+        border-color: #d0d7de;
+      }
+    </style>
   </head>
   <body class="bg-spectra-smoke min-h-screen">
-    <header class="bg-spectra-blue text-white py-4 px-6">
-      <div class="max-w-5xl mx-auto flex justify-between items-center">
-        <div class="flex items-center">
+    <!-- Header -->
+    <header class="bg-white border-b border-spectra-sky py-4 px-6">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-3">
           <img
             src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true"
             alt="SPECTRA Logo"
-            class="h-8 mr-3"
+            class="h-8 w-8"
           />
-          <h1 class="text-xl font-bold" style="font-family: 'Poppins', sans-serif;">
+          <h1 class="text-xl font-semibold text-spectra-ink">
             SPECTRA
           </h1>
         </div>
         <nav>
-          <ul class="flex space-x-6 items-center">
+          <ul class="flex items-center space-x-8">
             <li>
-              <a href="/" class="hover:text-spectra-gold transition-colors">
+              <a href="/" class="text-spectra-ink hover:text-blue-600 font-medium text-sm transition-colors">
                 Home
               </a>
             </li>
@@ -33,35 +67,47 @@ export const prerender = true;
         </nav>
       </div>
     </header>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
     <main class="py-20 px-6">
-      <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
-        <h2 class="text-2xl font-bold text-spectra-blue mb-6 text-center">
-          Sign In to SPECTRA
-        </h2>
-        
-        <div class="text-center text-spectra-ink mb-6">
-          <p class="mb-4">
-            Authentication is currently unavailable on the static version of this site.
-          </p>
-          <p class="text-sm">
-            For full access to the dashboard and authentication features, please contact us directly.
+      <div class="max-w-md mx-auto bg-white rounded-lg border border-gray-200 p-8">
+        <div class="text-center mb-8">
+          <img
+            src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true"
+            alt="SPECTRA Logo"
+            class="mx-auto mb-4 h-12 w-12"
+          />
+          <h2 class="text-2xl font-semibold text-spectra-ink mb-2">
+            Sign In to SPECTRA
+          </h2>
+          <p class="text-gray-600 text-sm">
+            Authentication is currently unavailable on the static version.
           </p>
         </div>
-
+        
         <div class="space-y-4">
           <a
             href="/contact"
-            class="w-full block text-center px-4 py-2 bg-spectra-blue text-white rounded-lg hover:bg-spectra-orange transition"
+            class="btn-primary w-full block text-center px-4 py-3 rounded-md font-medium text-sm"
           >
-            Contact Us
+            Contact Us for Access
           </a>
           <a
             href="/"
-            class="w-full block text-center px-4 py-2 border border-spectra-blue text-spectra-blue rounded-lg hover:bg-spectra-blue hover:text-white transition"
+            class="btn-secondary w-full block text-center px-4 py-3 rounded-md font-medium text-sm"
           >
             Back to Home
           </a>
+        </div>
+        
+        <div class="mt-6 text-center">
+          <p class="text-xs text-gray-500">
+            For full dashboard access, please reach out to our team directly.
+          </p>
         </div>
       </div>
     </main>
