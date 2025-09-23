@@ -11,6 +11,8 @@ jobs:
   enforce-framework-quality:
     name: "Enforce Framework Quality"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout repository
