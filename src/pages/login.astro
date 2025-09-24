@@ -2,30 +2,91 @@
 export const prerender = true;
 ---
 
-<html lang="en">
+<html lang="en" class="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign In | SPECTRA Data Solutions</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+    />
     <link rel="stylesheet" href="/src/styles/global.css" />
+    <style>
+      * {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+      
+      /* Theme variables */
+      .light {
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8fafc;
+        --text-primary: #1f2937;
+        --text-secondary: #6b7280;
+        --border-color: #e5e7eb;
+        --header-bg: #0969da;
+        --header-text: #ffffff;
+      }
+      
+      .dark {
+        --bg-primary: #1f2937;
+        --bg-secondary: #374151;
+        --text-primary: #f9fafb;
+        --text-secondary: #d1d5db;
+        --border-color: #4b5563;
+        --header-bg: #1e40af;
+        --header-text: #f9fafb;
+      }
+      
+      body {
+        background-color: var(--bg-secondary);
+        color: var(--text-primary);
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      
+      .btn-primary {
+        background-color: #1a7f37;
+        border: 1px solid #1a7f37;
+        color: white;
+        transition: all 0.2s ease;
+      }
+      
+      .btn-primary:hover {
+        background-color: #2da44e;
+        border-color: #2da44e;
+      }
+      
+      .btn-secondary {
+        background-color: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+        transition: all 0.2s ease;
+      }
+      
+      .btn-secondary:hover {
+        background-color: var(--bg-secondary);
+        border-color: var(--border-color);
+      }
+    </style>
   </head>
-  <body class="bg-spectra-smoke min-h-screen">
-    <header class="bg-spectra-blue text-white py-4 px-6">
-      <div class="max-w-5xl mx-auto flex justify-between items-center">
-        <div class="flex items-center">
+  <body class="min-h-screen">
+    <!-- Header -->
+    <header class="text-white py-3 px-6" style="background-color: var(--header-bg); color: var(--header-text);">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-3">
           <img
             src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true"
             alt="SPECTRA Logo"
-            class="h-8 mr-3"
+            class="h-8 w-8"
           />
-          <h1 class="text-xl font-bold" style="font-family: 'Poppins', sans-serif;">
+          <h1 class="text-xl font-semibold">
             SPECTRA
           </h1>
         </div>
         <nav>
-          <ul class="flex space-x-6 items-center">
+          <ul class="flex items-center space-x-8">
             <li>
-              <a href="/" class="hover:text-spectra-gold transition-colors">
+              <a href="/" class="text-white hover:text-blue-200 font-medium text-sm transition-colors">
                 Home
               </a>
             </li>
@@ -35,33 +96,40 @@ export const prerender = true;
     </header>
 
     <main class="py-20 px-6">
-      <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
-        <h2 class="text-2xl font-bold text-spectra-blue mb-6 text-center">
-          Sign In to SPECTRA
-        </h2>
-        
-        <div class="text-center text-spectra-ink mb-6">
-          <p class="mb-4">
-            Authentication is currently unavailable on the static version of this site.
-          </p>
-          <p class="text-sm">
-            For full access to the dashboard and authentication features, please contact us directly.
+      <div class="max-w-md mx-auto rounded-lg border p-8" style="background-color: var(--bg-primary); border-color: var(--border-color);">
+        <div class="text-center mb-8">
+          <img
+            src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true"
+            alt="SPECTRA Logo"
+            class="mx-auto mb-4 h-12 w-12"
+          />
+          <h2 class="text-2xl font-semibold mb-2" style="color: var(--text-primary);">
+            Sign In to SPECTRA
+          </h2>
+          <p class="text-sm" style="color: var(--text-secondary);">
+            Authentication is currently unavailable on the static version.
           </p>
         </div>
-
+        
         <div class="space-y-4">
           <a
             href="/contact"
-            class="w-full block text-center px-4 py-2 bg-spectra-blue text-white rounded-lg hover:bg-spectra-orange transition"
+            class="btn-primary w-full block text-center px-4 py-3 rounded-md font-medium text-sm"
           >
-            Contact Us
+            Contact Us for Access
           </a>
           <a
             href="/"
-            class="w-full block text-center px-4 py-2 border border-spectra-blue text-spectra-blue rounded-lg hover:bg-spectra-blue hover:text-white transition"
+            class="btn-secondary w-full block text-center px-4 py-3 rounded-md font-medium text-sm"
           >
             Back to Home
           </a>
+        </div>
+        
+        <div class="mt-6 text-center">
+          <p class="text-xs" style="color: var(--text-secondary);">
+            For full dashboard access, please reach out to our team directly.
+          </p>
         </div>
       </div>
     </main>

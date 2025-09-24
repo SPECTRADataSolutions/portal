@@ -1,21 +1,21 @@
-// spectra.colors.js
+// spectra.colors.js - Updated with Unifi subtle blues and GitHub UX principles
 module.exports = {
   core: {
-    dark: '#023364',
-    ink: '#1C2325',
-    smoke: '#F0F4F8',
-    cloud: '#FFFFFF'
+    dark: '#1a1a1a',      // Subtle dark for text
+    ink: '#24292f',       // GitHub text color
+    smoke: '#f6f8fa',     // GitHub background
+    cloud: '#ffffff'      // Pure white
   },
   brand: {
-    blue: '#024689',
-    azure: '#118ACB',
-    sky: '#88C3E3'
+    blue: '#0969da',      // Unifi-inspired subtle blue (primary)
+    azure: '#218bff',     // Lighter blue for highlights
+    sky: '#dbeafe'        // Very light blue for backgrounds
   },
   accent: {
-    gold: '#FED100',
-    orange: '#E16315',
-    red: '#E6185F',
-    green: '#7DB928',
-    lilac: '#943A8E'
+    gold: '#bf8700',      // Muted gold for highlights
+    orange: '#fb8500',    // Warning/attention color
+    red: '#cf222e',       // GitHub danger red
+    green: '#1a7f37',     // GitHub success green
+    lilac: '#8250df'      // GitHub accent purple
   }
 }
