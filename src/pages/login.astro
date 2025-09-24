@@ -2,7 +2,7 @@
 export const prerender = true;
 ---
 
-<html lang="en">
+<html lang="en" class="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,6 +15,33 @@ export const prerender = true;
     <style>
       * {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+      
+      /* Theme variables */
+      .light {
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8fafc;
+        --text-primary: #1f2937;
+        --text-secondary: #6b7280;
+        --border-color: #e5e7eb;
+        --header-bg: #0969da;
+        --header-text: #ffffff;
+      }
+      
+      .dark {
+        --bg-primary: #1f2937;
+        --bg-secondary: #374151;
+        --text-primary: #f9fafb;
+        --text-secondary: #d1d5db;
+        --border-color: #4b5563;
+        --header-bg: #1e40af;
+        --header-text: #f9fafb;
+      }
+      
+      body {
+        background-color: var(--bg-secondary);
+        color: var(--text-primary);
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
       
       .btn-primary {
@@ -31,20 +58,20 @@ export const prerender = true;
       
       .btn-secondary {
         background-color: transparent;
-        border: 1px solid #d0d7de;
-        color: #24292f;
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
         transition: all 0.2s ease;
       }
       
       .btn-secondary:hover {
-        background-color: #f6f8fa;
-        border-color: #d0d7de;
+        background-color: var(--bg-secondary);
+        border-color: var(--border-color);
       }
     </style>
   </head>
-  <body class="bg-spectra-smoke min-h-screen">
+  <body class="min-h-screen">
     <!-- Header -->
-    <header class="bg-white border-b border-spectra-sky py-4 px-6">
+    <header class="text-white py-3 px-6" style="background-color: var(--header-bg); color: var(--header-text);">
       <div class="max-w-6xl mx-auto flex justify-between items-center">
         <div class="flex items-center space-x-3">
           <img
@@ -52,14 +79,14 @@ export const prerender = true;
             alt="SPECTRA Logo"
             class="h-8 w-8"
           />
-          <h1 class="text-xl font-semibold text-spectra-ink">
+          <h1 class="text-xl font-semibold">
             SPECTRA
           </h1>
         </div>
         <nav>
           <ul class="flex items-center space-x-8">
             <li>
-              <a href="/" class="text-spectra-ink hover:text-blue-600 font-medium text-sm transition-colors">
+              <a href="/" class="text-white hover:text-blue-200 font-medium text-sm transition-colors">
                 Home
               </a>
             </li>
@@ -74,17 +101,17 @@ export const prerender = true;
     </header>
 
     <main class="py-20 px-6">
-      <div class="max-w-md mx-auto bg-white rounded-lg border border-gray-200 p-8">
+      <div class="max-w-md mx-auto rounded-lg border p-8" style="background-color: var(--bg-primary); border-color: var(--border-color);">
         <div class="text-center mb-8">
           <img
             src="https://github.com/SPECTRADataSolutions/framework/blob/main/assets/images/spectraLogo.png?raw=true"
             alt="SPECTRA Logo"
             class="mx-auto mb-4 h-12 w-12"
           />
-          <h2 class="text-2xl font-semibold text-spectra-ink mb-2">
+          <h2 class="text-2xl font-semibold mb-2" style="color: var(--text-primary);">
             Sign In to SPECTRA
           </h2>
-          <p class="text-gray-600 text-sm">
+          <p class="text-sm" style="color: var(--text-secondary);">
             Authentication is currently unavailable on the static version.
           </p>
         </div>
@@ -105,7 +132,7 @@ export const prerender = true;
         </div>
         
         <div class="mt-6 text-center">
-          <p class="text-xs text-gray-500">
+          <p class="text-xs" style="color: var(--text-secondary);">
             For full dashboard access, please reach out to our team directly.
           </p>
         </div>

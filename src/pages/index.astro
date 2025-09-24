@@ -3,7 +3,7 @@
 export const prerender = true;
 ---
 
-<html lang="en">
+<html lang="en" class="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,15 +22,60 @@ export const prerender = true;
       scroll-behavior: smooth;
     }
     
+    /* Theme variables */
+    .light {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-accent: #dbeafe;
+      --text-primary: #1f2937;
+      --text-secondary: #6b7280;
+      --border-color: #e5e7eb;
+      --header-bg: #0969da;
+      --header-text: #ffffff;
+    }
+    
+    .dark {
+      --bg-primary: #1f2937;
+      --bg-secondary: #374151;
+      --bg-accent: #1e3a8a;
+      --text-primary: #f9fafb;
+      --text-secondary: #d1d5db;
+      --border-color: #4b5563;
+      --header-bg: #1e40af;
+      --header-text: #f9fafb;
+    }
+    
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
     .nav-link {
       position: relative;
       transition: all 0.2s ease;
       font-weight: 500;
       font-size: 14px;
+      color: var(--header-text);
     }
     
     .nav-link:hover {
-      color: #0969da;
+      color: #dbeafe;
+    }
+    
+    .nav-link.active {
+      color: #dbeafe;
+    }
+    
+    .nav-link.active::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #dbeafe;
+      border-radius: 1px;
     }
     
     .btn-primary {
@@ -47,22 +92,43 @@ export const prerender = true;
     
     .btn-secondary {
       background-color: transparent;
-      border: 1px solid #d0d7de;
-      color: #24292f;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
       transition: all 0.2s ease;
     }
     
     .btn-secondary:hover {
-      background-color: #f6f8fa;
-      border-color: #d0d7de;
+      background-color: var(--bg-secondary);
+      border-color: var(--border-color);
+    }
+    
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: var(--header-text);
+      padding: 0.5rem;
+      border-radius: 0.375rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 14px;
+    }
+    
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .section-light-blue {
+      background-color: var(--bg-accent);
+      background-opacity: 0.1;
     }
   </style>
 </head>
 
-<body class="bg-white text-spectra-ink min-h-screen">
+<body class="min-h-screen">
 
 <!-- Header -->
-<header class="bg-white border-b border-spectra-sky py-4 px-6 sticky top-0 z-50">
+<header class="bg-spectra-blue text-white py-3 px-6 sticky top-0 z-50" style="background-color: var(--header-bg); color: var(--header-text);">
   <div class="max-w-6xl mx-auto flex justify-between items-center">
     <div class="flex items-center space-x-3">
       <img
@@ -70,21 +136,26 @@ export const prerender = true;
         alt="SPECTRA Logo"
         class="h-8 w-8"
       />
-      <h1 class="text-xl font-semibold text-spectra-ink">
+      <h1 class="text-xl font-semibold">
         SPECTRA
       </h1>
     </div>
     <nav>
-      <ul class="flex items-center space-x-8">
+      <ul class="flex items-center space-x-6">
         <li>
-          <a href="/vision" class="nav-link text-spectra-ink">
+          <a href="/vision" class="nav-link">
             Vision
           </a>
         </li>
         <li>
-          <a href="/contact" class="nav-link text-spectra-ink">
+          <a href="/contact" class="nav-link">
             Contact
           </a>
+        </li>
+        <li>
+          <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+            <span class="theme-icon">🌙</span>
+          </button>
         </li>
         <li>
           <a
@@ -102,7 +173,7 @@ export const prerender = true;
 <!-- Main Content -->
 <main>
   <!-- Hero Section -->
-  <section class="py-24 px-6 text-center">
+  <section class="py-24 px-6 text-center" style="background-color: var(--bg-primary);">
     <div class="max-w-4xl mx-auto">
       <div class="mb-8">
         <img
@@ -110,10 +181,10 @@ export const prerender = true;
           alt="SPECTRA Logo"
           class="mx-auto mb-6 h-16 w-16"
         />
-        <h1 class="text-5xl font-semibold text-spectra-ink mb-4 tracking-tight">
+        <h1 class="text-5xl font-semibold mb-4 tracking-tight" style="color: var(--text-primary);">
           SPECTRA
         </h1>
-        <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+        <p class="text-xl mb-8 max-w-2xl mx-auto leading-relaxed" style="color: var(--text-secondary);">
           Modular AI-powered data pipelines for Microsoft Fabric. 
           Democratizing enterprise-grade data capabilities for organizations of every size.
         </p>
@@ -137,22 +208,22 @@ export const prerender = true;
   </section>
 
   <!-- Simple Value Proposition -->
-  <section class="py-16 px-6 bg-spectra-sky bg-opacity-30">
+  <section class="py-16 px-6 section-light-blue" style="background-color: var(--bg-secondary);">
     <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-2xl font-medium text-spectra-ink mb-6">
+      <h2 class="text-2xl font-medium mb-6" style="color: var(--text-primary);">
         Simplifying Data Automation
       </h2>
       <div class="grid md:grid-cols-2 gap-8">
         <div class="p-6">
-          <h3 class="font-medium text-spectra-ink mb-3">For Growing Businesses</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">
+          <h3 class="font-medium mb-3" style="color: var(--text-primary);">For Growing Businesses</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
             Affordable, plug-and-play solutions that scale with your growth. 
             No enterprise complexity, just results.
           </p>
         </div>
         <div class="p-6">
-          <h3 class="font-medium text-spectra-ink mb-3">For Large Enterprises</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">
+          <h3 class="font-medium mb-3" style="color: var(--text-primary);">For Large Enterprises</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
             Comprehensive, scalable architecture with advanced governance 
             and enterprise-grade security.
           </p>
@@ -162,12 +233,12 @@ export const prerender = true;
   </section>
 
   <!-- CTA Footer -->
-  <section class="py-16 px-6 text-center">
+  <section class="py-16 px-6 text-center" style="background-color: var(--bg-primary);">
     <div class="max-w-2xl mx-auto">
-      <h2 class="text-2xl font-medium text-spectra-ink mb-4">
+      <h2 class="text-2xl font-medium mb-4" style="color: var(--text-primary);">
         Ready to Transform Your Data Infrastructure?
       </h2>
-      <p class="text-gray-600 mb-8">
+      <p class="mb-8" style="color: var(--text-secondary);">
         Start your journey with SPECTRA's modular data pipeline platform.
       </p>
       <a
@@ -179,5 +250,35 @@ export const prerender = true;
     </div>
   </section>
 </main>
+
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (html.classList.contains('light')) {
+      html.classList.remove('light');
+      html.classList.add('dark');
+      themeIcon.textContent = '☀️';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      html.classList.remove('dark');
+      html.classList.add('light');
+      themeIcon.textContent = '🌙';
+      localStorage.setItem('theme', 'light');
+    }
+  }
+  
+  // Initialize theme on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const html = document.documentElement;
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    html.classList.remove('light', 'dark');
+    html.classList.add(savedTheme);
+    themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+  });
+</script>
 </body>
 </html>
